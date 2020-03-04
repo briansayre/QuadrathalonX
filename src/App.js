@@ -6,7 +6,7 @@ function App() {
     <div>
 
       <div class="header"> 
-          QUAD X<br/>
+          QUAD <br/>
           RATH <br />
           ALON <br />
       </div>

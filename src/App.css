@@ -8,15 +8,49 @@ grey -
 */
 
 
+
+body {
+  background-color: #202040;
+}
+
 .header {
   margin-top: 2rem;
   width: 100%;
   text-align: center;
   color: #B030B0;
-  filter: drop-shadow(3px 2px 0px #602080);
+  filter: drop-shadow(3px 3px 0px #602080);
   font-size: 4rem;
 }
 
-body {
-  background-color: #202040;
+.button-flex-container {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.button-flex-item {
+  margin-top: 3rem;
+  width: 20rem;
+  height: 5rem;
+  text-align: center;
+  filter: drop-shadow(4px 4px 0px #602080);
+
+}
+
+.button-flex-item > button {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  background-color: #B030B0;
+  border: none;
+  color: white;
+  font-size: 1em;
 }

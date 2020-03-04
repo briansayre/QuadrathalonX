@@ -1,10 +1,22 @@
+/*
+dark blue - #202040
+lighter dark blue - #202060
+pink - #B030B0
+purple - #602080
+grey - 
+
+*/
+
 
 .header {
+  margin-top: 2rem;
   width: 100%;
   text-align: center;
-  color: pink;
+  color: #B030B0;
+  filter: drop-shadow(3px 2px 0px #602080);
+  font-size: 4rem;
 }
 
 body {
-  background-color: navy;
+  background-color: #202040;
 }

@@ -62,9 +62,9 @@ body {
 }
 
 .button-flex-item:active {
-  position: relative;
-  top: 4px;
-  left: 4px;
+  transition-duration: .25s;
+  -ms-transform: translate(4px, 4px);
+  transform: translate(4px, 4px);
   filter: drop-shadow(0px 0px 0px);
 }
 

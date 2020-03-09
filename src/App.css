@@ -8,7 +8,6 @@ grey -
 */
 
 
-
 body {
   background-color: #202040;
 }
@@ -20,6 +19,14 @@ body {
   color: #B030B0;
   filter: drop-shadow(3px 3px 0px #602080);
   font-size: 4rem;
+}
+
+.home-text {
+  text-align: center;
+  line-height: 2rem;
+  color: #B030B0;
+  font-style: italic;
+  margin: 2rem;
 }
 
 .button-flex-container {
@@ -37,12 +44,11 @@ body {
 
 
 .button-flex-item {
-  margin-top: 3rem;
+  margin-top: 2rem;
   width: 20rem;
   height: 5rem;
   text-align: center;
   filter: drop-shadow(4px 4px 0px #602080);
-
 }
 
 .button-flex-item > button {
@@ -53,4 +59,15 @@ body {
   border: none;
   color: white;
   font-size: 1em;
+}
+
+.button-flex-item:active {
+  position: relative;
+  top: 4px;
+  left: 4px;
+  filter: drop-shadow(0px 0px 0px);
+}
+
+.button-flex-item > button:active {
+  background-color: #B030B0;
 }

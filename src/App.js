@@ -3,6 +3,7 @@ import './App.css';
 
 function App() {
   return (
+
     <div>
 
       <div class="header"> 
@@ -18,20 +19,21 @@ function App() {
       <div class="button-flex-container">
         <div class="row"> 
           <div class="button-flex-item">
-            <button class="pink-button"> LOG IN </button>
+            <button> LOG IN </button>
           </div>
     
           <div class="button-flex-item">
-            <button class="pink-button"> SIGN UP </button>
+            <button> SIGN UP </button>
           </div>
     
           <div class="button-flex-item">
-            <button class="pink-button"> GUEST </button>
+            <button> GUEST </button>
           </div>
         </div>
       </div>
 
     </div>
+    
   );
 }
 

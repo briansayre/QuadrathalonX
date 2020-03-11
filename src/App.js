@@ -1,36 +1,13 @@
 import React from 'react';
 import './App.css';
+import Home from './Components/Home/Home'
+
 
 function App() {
   return (
 
-    <div>
-
-      <div class="header"> 
-          QUAD <br/>
-          RATH <br />
-          ALON <br />
-      </div>
-
-      <p class="home-text">
-        Test your gaming skills in <br/> a series of four games...
-      </p>
-      
-      <div class="button-flex-container">
-        <div class="row"> 
-          <div class="button-flex-item">
-            <button> LOG IN </button>
-          </div>
-    
-          <div class="button-flex-item">
-            <button> SIGN UP </button>
-          </div>
-    
-          <div class="button-flex-item">
-            <button> GUEST </button>
-          </div>
-        </div>
-      </div>
+    <div onload="startGame()">
+      <Home />
 
     </div>
     

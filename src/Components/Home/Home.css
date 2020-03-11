@@ -1,0 +1,71 @@
+/*
+dark blue - #202040
+lighter dark blue - #202060
+pink - #B030B0
+purple - #602080
+grey - 
+
+*/
+
+
+body {
+    background-color: #202040;
+  }
+  
+  .header {
+    margin: 3rem 0 3rem 0;
+    width: 100%;
+    text-align: center;
+    color: #B030B0;
+    filter: drop-shadow(3px 3px 0px #602080);
+    line-height: 5rem;
+    font-size: 5rem;
+  }
+  
+  .home-text {
+    text-align: center;
+    line-height: 2rem;
+    color: #B030B0;
+    font-style: italic;
+    margin: 2rem;
+  }
+  
+  .button-flex-container {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  .button-flex-item {
+    margin-top: 2rem;
+    width: 20rem;
+    height: 5rem;
+    text-align: center;
+    filter: drop-shadow(4px 4px 0px #602080);
+  }
+  
+  .button-flex-item > button {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    background-color: #B030B0;
+    border: none;
+    color: white;
+    font-size: 1em;
+  }
+  
+  .button-flex-item:active {
+    transition-duration: .2s;
+    -ms-transform: translate(5px, 5px);
+    transform: translate(5px, 5px);
+    filter: drop-shadow(0px 0px 0px #602080);
+  }
+  

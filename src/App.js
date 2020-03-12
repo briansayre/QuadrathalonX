@@ -6,7 +6,8 @@ import Home from './Components/Home/Home'
 function App() {
   return (
 
-    <div onload="startGame()">
+    <div>
+
       <Home />
 
     </div>

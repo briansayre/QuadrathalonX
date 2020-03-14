@@ -1,4 +1,20 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Quadrathalon X - Group 21 - Com S 319
+
+## How to start developement
+
+1. Clone the repository (Only need to do once)
+`git clone <url>`
+
+2. Change into the directory
+`cd <directory>`
+
+3. Install all node modules (Only need to do once)
+`npm install`
+
+4. Start the devolopement server
+`npm start`
+
+You are redy for developement!
 
 ## Available Scripts
 

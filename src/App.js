@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import Home from './Components/Home/Home'
+import Home from './Components/Home/Home';
+import Routes from "./Routes";
 
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
 
     <div>
 
-      <Home />
+      <Routes />
 
     </div>
     

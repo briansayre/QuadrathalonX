@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import './Home.css';
 
 class Home extends Component {
@@ -17,21 +18,30 @@ class Home extends Component {
         
         <div class="button-flex-container">
             <div class="row"> 
+
             <div class="button-flex-item">
-                <button> LOG IN </button>
+                <button> 
+                  <Link class="link" to="/login"> LOG IN </Link>
+                </button>
             </div>
         
             <div class="button-flex-item">
-                <button> SIGN UP </button>
+                <button> 
+                  <Link class="link" to="/signup"> SIGN UP </Link>
+                </button>
             </div>
         
             <div class="button-flex-item">
-                <button> GUEST </button>
+                <button> 
+                  <Link class="link" to="/guest"> GUEST </Link>
+                </button>
             </div>
-            </div>
+          </div>
+
         </div>
       </div>
     );
   }
 }
+
 export default Home;

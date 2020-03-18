@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import './Home.css';
 
-class Home extends Component {
+class Practice extends Component {
   render() {
     return (
       <div>
@@ -11,41 +10,47 @@ class Home extends Component {
             ALON <br />
         </div>
         
-        <p class="home-text">
-            Test your gaming skills in <br/> a series of four games...
-        </p>
-        
         <div class="button-flex-container">
-            <div class="row"> 
 
-            <div class="button-flex-item">
-              <form action="/login" method="get">
-                <button type="submit"> 
-                  LOG IN
-                </button>
-              </form>
-            </div>
+          <div class="row"> 
         
-            <div class="button-flex-item">
-              <form action="/signup" method="get">
+          <div class="button-flex-item">
+              <form action="/game1" method="get">
                 <button type="submit"> 
-                  SIGN UP
+                    GAME 1
                 </button>
               </form>
             </div>
-        
+            
             <div class="button-flex-item">
-              <form action="/guest" method="get">
+              <form action="/game2" method="get">
                 <button type="submit"> 
-                  GUEST
+                    GAME 2
                 </button>
               </form>
             </div>
+            
+            <div class="button-flex-item">
+              <form action="/game3" method="get">
+                <button type="submit"> 
+                    GAME 3
+                </button>
+              </form>
+            </div>
+            
+            <div class="button-flex-item">
+              <form action="/game4" method="get">
+                <button type="submit"> 
+                    GAME 4
+                </button>
+              </form>
+            </div>
+
           </div>
-        </div>
+        
+        </div> 
       </div>
     );
   }
 }
-
-export default Home;
+export default Practice;

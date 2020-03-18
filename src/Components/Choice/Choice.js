@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import './Home.css';
+import './Choice.css';
 
-class Home extends Component {
+class Choice extends Component {
   render() {
     return (
       <div>
@@ -10,42 +10,44 @@ class Home extends Component {
             RATH <br />
             ALON <br />
         </div>
-        
+
         <p class="home-text">
-            Test your gaming skills in <br/> a series of four games...
+            Hello, name. You can either play for a high <br /> score or practice an individual game.
         </p>
-        
+
         <div class="button-flex-container">
-            <div class="row"> 
+        
+          <div class="row"> 
 
             <div class="button-flex-item">
-              <form action="/login" method="get">
+              <form action="/game1" method="get">
                 <button type="submit"> 
-                  LOG IN
+                  PLAY
                 </button>
               </form>
             </div>
-        
+
             <div class="button-flex-item">
-              <form action="/signup" method="get">
+              <form action="/practice" method="get">
                 <button type="submit"> 
-                  SIGN UP
+                  PRACTICE
                 </button>
               </form>
             </div>
-        
+
             <div class="button-flex-item">
-              <form action="/guest" method="get">
+              <form action="/highscore" method="get">
                 <button type="submit"> 
-                  GUEST
+                  VIEW HIGH SCORES
                 </button>
               </form>
             </div>
+
           </div>
-        </div>
+        
+        </div> 
       </div>
     );
   }
 }
-
-export default Home;
+export default Choice;

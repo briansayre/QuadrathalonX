@@ -5,3 +5,20 @@ pink - #B030B0
 purple - #602080
 grey - 
 */
+
+.text-input {
+    filter: drop-shadow(4px 4px 0px #602080);
+    padding-left: .5rem;
+    margin-top: 2rem;
+    width: 20rem;
+    height: 2.5rem;
+    border: none;
+    color: #202040;
+    font-size: 1em;
+}
+
+.game-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

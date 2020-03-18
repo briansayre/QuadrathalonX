@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import './LogIn.css';
+import './Guest.css';
 
-class LogIn extends Component {
+class Guest extends Component {
   render() {
     return (
       <div>
@@ -16,17 +16,13 @@ class LogIn extends Component {
           <div class="row"> 
 
             <div class="button-flex-item">
-              <input class="text-input" type="text" placeholder="EMAIL" />
-            </div>
-        
-            <div class="button-flex-item"> 
-              <input class="text-input" type="password" placeholder="PASSWORD" />
+              <input class="text-input" type="text" placeholder="NAME" />
             </div>
         
             <div class="button-flex-item">
               <form action="/choice" method="get">
                 <button type="submit"> 
-                  LOG IN
+                  CONTINUE
                 </button>
               </form>
             </div>
@@ -38,4 +34,4 @@ class LogIn extends Component {
     );
   }
 }
-export default LogIn;
+export default Guest;

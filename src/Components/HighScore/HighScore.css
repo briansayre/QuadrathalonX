@@ -1,0 +1,11 @@
+.score {
+    text-align: center;
+    color: #B030B0;
+}
+
+.score-text {
+    text-align: center;
+    line-height: 2rem;
+    color: #B030B0;
+    font-style: italic;
+  }

@@ -3,10 +3,10 @@
 ## How to start developement
 
 1. Clone the repository (Only need to do once)
-`git clone <url>`
+`git clone https://git.linux.iastate.edu/Spting2020-CS319-GitProjects/g21.git`
 
 2. Change into the directory
-`cd <directory>`
+`cd g21`
 
 3. Install all node modules (Only need to do once)
 `npm install`

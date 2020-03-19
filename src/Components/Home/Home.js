@@ -5,11 +5,6 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <div class="header"> 
-            QUAD <br/>
-            RATH <br />
-            ALON <br />
-        </div>
         
         <p class="home-text">
             Test your gaming skills in <br/> a series of four games...

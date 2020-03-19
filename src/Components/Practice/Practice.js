@@ -4,11 +4,6 @@ class Practice extends Component {
   render() {
     return (
       <div>
-        <div class="header"> 
-            QUAD <br/>
-            RATH <br />
-            ALON <br />
-        </div>
         
         <div class="button-flex-container">
 

@@ -5,11 +5,6 @@ class Choice extends Component {
   render() {
     return (
       <div>
-        <div class="header"> 
-            QUAD <br/>
-            RATH <br />
-            ALON <br />
-        </div>
 
         <p class="home-text">
             Hello, name. You can either play for a high <br /> score or practice an individual game.

@@ -7,10 +7,10 @@ import Guest from "./Components/Guest/Guest";
 import Choice from "./Components/Choice/Choice";
 import Practice from "./Components/Practice/Practice";
 import HighScore from "./Components/HighScore/HighScore";
-import Game1 from "./Components/Games/Game1/Game1";
-import Game2 from "./Components/Games/Game2/Game2";
-import Game3 from "./Components/Games/Game3/Game3";
-import Game4 from "./Components/Games/Game4/Game4";
+import Game1 from "./Components/Games/Game1Brian/Game1";
+import Game2 from "./Components/Games/Game2Simba/Game2";
+import Game3 from "./Components/Games/Game3Conley/Game3";
+import Game4 from "./Components/Games/Game4Jackson/Game4";
 
 export default function Routes() {
   return (

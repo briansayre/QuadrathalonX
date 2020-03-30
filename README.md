@@ -2,19 +2,40 @@
 
 ## How to start developement
 
-1. Clone the repository (Only need to do once)
+1. Clone the repository <br />
 `git clone https://git.linux.iastate.edu/Spting2020-CS319-GitProjects/g21.git`
 
-2. Change into the directory
-`cd g21`
+2. Change into the directory <br />
+`cd g21` 
 
-3. Install all node modules (Only need to do once)
+3. Install all node modules <br />
 `npm install`
 
-4. Start the devolopement server
+4. Start the devolopement server <br />
 `npm start`
 
-You are redy for developement!
+## Before developement everytime
+
+1. Pull repository <br />
+`git pull origin master`
+
+2. Start the devolopement server <br />
+`npm start`
+
+## After changes everytime
+
+1. Stage changes <br />
+`git add .`
+
+2. Commit changes <br />
+`git commit -m "what you changed goes here"`
+
+3. Push to the repository <br />
+`git push origin master`
+
+
+
+
 
 ## Available Scripts
 

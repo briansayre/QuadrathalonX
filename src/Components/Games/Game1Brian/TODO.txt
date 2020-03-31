@@ -1,0 +1,14 @@
+ZOMBIES
+- Add health
+- Start breaking
+
+GAMEPLAY
+- Add timer
+
+STONES
+- Randomly generate stones
+- Clicked stones adds to an inventory
+- Rebuild broken walls
+
+MEGA
+- Add MEGA

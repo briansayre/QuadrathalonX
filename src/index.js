@@ -9,7 +9,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 ReactDOM.render(
     <Router>
       
-      <div class="header"> 
+      <div className="header"> 
         QUAD <br/>
         RATH <br />
         ALON <br />

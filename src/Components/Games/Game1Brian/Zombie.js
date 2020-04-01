@@ -1,23 +1,31 @@
-class Zombie { 
+export default class Zombie { 
 
-    x;
-    y;
-    speed;
-    p5;
-    health = 1;
-  
-    constructor(x, y, s, p) { 
-      this.x = x;
-      this.y = y;
-      this.speed = s;
-      this.p5 = p;
-    } 
-  
-    show() {
-      this.p5.fill(0, 80, 51);
-      this.p5.ellipse(this.x, this.y, 30 ,30);
-    }
-  
-  } 
+  col;
+  x;
+  y;
+  p5;
+  throughWall;
+  speed;
 
-  export default Zombie;
+  // Zombie constructor
+  constructor(x, y, c, p) {
+    this.x = x;
+    this.y = y;
+    this.col = c;
+    this.p5 = p;
+    this.throughWall = false;
+    this.speed = (Math.floor(Math.random() * 4)) + 3;
+  }
+
+  // Moves the zombie
+  move() {
+    this.y += this.speed;
+  }
+
+  // Displays the zombie on the canvas
+  show() {
+    this.p5.fill(0, 80, 51);
+    this.p5.ellipse(this.x, this.y, 30 ,30);
+  }
+
+} 

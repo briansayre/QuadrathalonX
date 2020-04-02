@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from 'react-dom';
 import './Game2.css';
 
 class Game2 extends Component {
@@ -47,7 +48,7 @@ class Board extends React.Component {
   
   insertRandom()
   {
-    const grid = this.state.grid.slice();sd
+    const grid = this.state.grid.slice();
     let i = Math.floor((Math.random() * 10000) %4);
 		let j = Math.floor((Math.random() * 10000) %4);
 		while(grid[i][j] != 0)

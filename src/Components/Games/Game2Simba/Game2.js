@@ -47,7 +47,7 @@ class Board extends React.Component {
   
   insertRandom()
   {
-    const grid = this.state.grid.slice();
+    const grid = this.state.grid.slice();sd
     let i = Math.floor((Math.random() * 10000) %4);
 		let j = Math.floor((Math.random() * 10000) %4);
 		while(grid[i][j] != 0)

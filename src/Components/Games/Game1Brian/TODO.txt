@@ -1,14 +1,5 @@
-ZOMBIES
-- Add health
-- Start breaking
+- Add images to replace the circles and sqaures
 
-GAMEPLAY
-- Add timer
-
-STONES
-- Randomly generate stones
-- Clicked stones adds to an inventory
-- Rebuild broken walls
-
-MEGA
-- Add MEGA
+POSIBILITES
+- Add a trap that kills zombies
+- bonus points that randomly spawn

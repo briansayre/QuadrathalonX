@@ -67,7 +67,7 @@ body {
   justify-content: center;
 }
 
-button {
+.pink-button {
   filter: drop-shadow(4px 4px 0px #602080);
   text-align: center;
   cursor: pointer;
@@ -80,7 +80,7 @@ button {
   font-size: 1em;
 }
 
-button:active {
+.pink-button:active {
   transition-duration: .2s;
   -ms-transform: translate(5px, 5px);
   transform: translate(5px, 5px);

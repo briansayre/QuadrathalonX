@@ -20,7 +20,7 @@ class LogIn extends Component {
         
             <div class="button-flex-item">
               <form action="/choice" method="get">
-                <button type="submit"> 
+                <button className="pink-button" type="submit"> 
                   LOG IN
                 </button>
               </form>

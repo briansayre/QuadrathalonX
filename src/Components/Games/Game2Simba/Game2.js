@@ -51,7 +51,7 @@ class Board extends React.Component {
     const grid = this.state.grid.slice();
     let i = Math.floor((Math.random() * 10000) %4);
 		let j = Math.floor((Math.random() * 10000) %4);
-		while(grid[i][j] != 0)
+		while(grid[i][j] !== 0)
 		{
 			i = Math.floor((Math.random() * 10000) %4);
 			j = Math.floor((Math.random() * 10000) %4);
@@ -69,7 +69,7 @@ class Board extends React.Component {
     {
       for(let j = 0; j < 4; j++)
       {
-        if(this.state.grid[i][j] == 0)
+        if(this.state.grid[i][j] === 0)
         {
           return 1;
         }
@@ -87,10 +87,10 @@ class Board extends React.Component {
     this.prolificateLeft();
     for(let j = 1; j < 4; j++)
     {
-      let moved = true;
+      //let moved = true;
       for(let i = 0; i < 4; i++)
       {
-        if(grid[i][j-1] == grid[i][j])
+        if(grid[i][j-1] === grid[i][j])
         {
           score += grid[i][j-1];
           grid[i][j-1]*=2;
@@ -115,7 +115,7 @@ class Board extends React.Component {
     {
       for(var j = 0; j < 4; j++)
       {
-        if(grid[i+1][j] == grid[i][j])
+        if(grid[i+1][j] === grid[i][j])
         {
           score+=grid[i+1][j];
           grid[i+1][j]*=2;
@@ -141,7 +141,7 @@ class Board extends React.Component {
     {
       for(var i = 0; i < 4; i++)
       {
-        if(grid[i][j+1] == grid[i][j])
+        if(grid[i][j+1] === grid[i][j])
         {
           score+=grid[i][j+1];
           grid[i][j+1]*=2;
@@ -166,7 +166,7 @@ class Board extends React.Component {
     {
       for(let j = 0; j < 4; j++)
       {
-        if(grid[i-1][j] == grid[i][j])
+        if(grid[i-1][j] === grid[i][j])
         {
           score+=grid[i-1][j];
           grid[i-1][j]*=2;
@@ -189,7 +189,7 @@ class Board extends React.Component {
       for(let j = 0; j < 4; j++)
       {
         let index = i;
-        while(index > 0 && grid[index-1][j] == 0 && grid[index][j] != 0)
+        while(index > 0 && grid[index-1][j] === 0 && grid[index][j] !== 0)
         {
           grid[index-1][j] = grid[index][j];
           grid[index][j] = 0;
@@ -211,7 +211,7 @@ class Board extends React.Component {
       for(let i = 0; i < 4; i++)
       {
         let index = j;
-        while(index > 0 && grid[i][index-1] == 0 && grid[i][index] != 0)
+        while(index > 0 && grid[i][index-1] === 0 && grid[i][index] !== 0)
         {
           grid[i][index-1] = grid[i][index];
           grid[i][index] = 0;
@@ -232,7 +232,7 @@ class Board extends React.Component {
       for(let i = 0; i < 4; i++)
       {
         let index = j;
-        while(index <=2 && grid[i][index+1] == 0 && grid[i][index] != 0)
+        while(index <=2 && grid[i][index+1] === 0 && grid[i][index] !== 0)
         {
           grid[i][index+1] = grid[i][index];
           grid[i][index] = 0;
@@ -253,7 +253,7 @@ class Board extends React.Component {
       for(let j = 0; j < 4; j++)
       {
         let index = i;
-        while(index <=2 && grid[index+1][j] == 0 && grid[index][j] != 0)
+        while(index <=2 && grid[index+1][j] === 0 && grid[index][j] !== 0)
         {
           grid[index+1][j] = grid[index][j];
           grid[index][j] = 0;
@@ -284,7 +284,7 @@ class Board extends React.Component {
     {
       this.shiftLeft();
     }
-    if(this.EmptySpaces() == 1)
+    if(this.EmptySpaces() === 1)
     {
       this.insertRandom();
     }
@@ -296,7 +296,7 @@ class Board extends React.Component {
   
   renderResetButton()
   {
-    if(this.state.gameLost == true)
+    if(this.state.gameLost === true)
     {
       return "Reset"
     }
@@ -319,7 +319,7 @@ class Board extends React.Component {
   }
   
   renderSquare(i) {
-    if(i == 0)
+    if(i === 0)
     {
         i = null;
     }
@@ -332,7 +332,7 @@ class Board extends React.Component {
         onKeyDown = {(e) => this.handleKeyPress(e)}
         tabIndex="0" 
         >
-        <div>
+        <div id="score">
           {this.state.score}
         </div>
         <button onClick = {() => this.resetGame()}>{this.renderResetButton()}</button>
@@ -369,15 +369,15 @@ class Board extends React.Component {
 class Game extends React.Component {
   render() {
     return (
-      <div className="game">
-        <div className="game-board">
-          <Board />
+        <div className="game">
+          <div className="game-board">
+            <Board />
+          </div>
+          <div className="game-info">
+            <div>{/* status */}</div>
+            <ol>{/* TODO */}</ol>
+          </div>
         </div>
-        <div className="game-info">
-          <div>{/* status */}</div>
-          <ol>{/* TODO */}</ol>
-        </div>
-      </div>
     );
   }
 }

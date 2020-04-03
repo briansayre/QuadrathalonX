@@ -15,7 +15,7 @@ class Home extends Component {
 
             <div class="button-flex-item">
               <form action="/login" method="get">
-                <button type="submit"> 
+                <button className="pink-button" type="submit"> 
                   LOG IN
                 </button>
               </form>
@@ -23,7 +23,7 @@ class Home extends Component {
         
             <div class="button-flex-item">
               <form action="/signup" method="get">
-                <button type="submit"> 
+                <button className="pink-button" type="submit"> 
                   SIGN UP
                 </button>
               </form>
@@ -31,7 +31,7 @@ class Home extends Component {
         
             <div class="button-flex-item">
               <form action="/guest" method="get">
-                <button type="submit"> 
+                <button className="pink-button" type="submit"> 
                   GUEST
                 </button>
               </form>

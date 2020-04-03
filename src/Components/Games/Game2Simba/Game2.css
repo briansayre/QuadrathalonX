@@ -13,6 +13,11 @@ ol, ul {
   display: table;
 }
 
+#score {
+  color: white;
+  text-align: center;
+}
+
 .status {
   margin-bottom: 10px;
 }
@@ -42,7 +47,12 @@ ol, ul {
 
 .game {
   display: flex;
+  justify-content: center;
   flex-direction: row;
+}
+
+.game-board {
+  display: inline-block;
 }
 
 .game-info {

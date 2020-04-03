@@ -10,7 +10,6 @@ import HighScore from "./Components/HighScore/HighScore";
 import Game1 from "./Components/Games/Game1Brian/Game1";
 import Game2 from "./Components/Games/Game2Simba/Game2";
 import Game3 from "./Components/Games/Game3Conley/Game3";
-import Game4 from "./Components/Games/Game4Jackson/Game4";
 
 export default function Routes() {
   return (
@@ -26,7 +25,7 @@ export default function Routes() {
       <Route path="/game1" exact component={Game1} />
       <Route path="/game2" exact component={Game2} />
       <Route path="/game3" exact component={Game3} />
-      <Route path="/game4" exact component={Game4} />
+      <Route path="/" exact component={Home} />
     </Switch>
   );
 

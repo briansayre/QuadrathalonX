@@ -4,7 +4,7 @@ body {
 }
 
 ol, ul {
-  padding-left: 30px;
+  padding-left: 90px;
 }
 
 .board-row:after {
@@ -16,6 +16,7 @@ ol, ul {
 #score {
   color: white;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .status {
@@ -28,13 +29,13 @@ ol, ul {
   float: left;
   font-size: 24px;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  line-height: 90px;
+  height: 90px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 90px;
 }
 
 .square:focus {
@@ -49,6 +50,8 @@ ol, ul {
   display: flex;
   justify-content: center;
   flex-direction: row;
+  
+  margin-left: 105px;
 }
 
 .game-board {

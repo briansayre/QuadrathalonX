@@ -296,11 +296,15 @@ class Board extends React.Component {
   
   renderResetButton()
   {
+
+    /* GET RID OF BUTTONS 
     if(this.state.gameLost === true)
     {
       return "Reset"
     }
     return "Start New Game"
+    
+    */
   }
   
   resetGame()
@@ -326,6 +330,8 @@ class Board extends React.Component {
     return <Square value={i}/>;
   }
 
+  // got rid of this button 
+  // <button onClick = {() => this.resetGame()}>{this.renderResetButton()}</button>
   render() {
     return (
       <div 
@@ -335,7 +341,7 @@ class Board extends React.Component {
         <div id="score">
           {this.state.score}
         </div>
-        <button onClick = {() => this.resetGame()}>{this.renderResetButton()}</button>
+        
         <div className="board-row">
           {this.renderSquare(this.state.grid[0][0])}
           {this.renderSquare(this.state.grid[0][1])}

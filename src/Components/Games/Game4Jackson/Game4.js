@@ -1,288 +1,228 @@
-const cvs = document.getElementById("tetris");
-const ctx = cvs.getContext("2d");
-const scoreElement = document.getElementById("score");
+import React, { Component } from "react";
+import Sketch from "react-p5";
+import './Game4.css';
 
-const ROW = 20;
-const  COLUMN = 10;
-const  squareSize = 20;
-const EMPTY = "WHITE"; // color of an empty square
+import Piece from "./Piece";
+import Playfield from "./Playfield";
 
-// draw a square
-function drawSquare(x,y,color){
-    ctx.fillStyle = color;
-    ctx.fillRect(x*squareSize,y*squareSize,squareSize,squareSize);
-
-    ctx.strokeStyle = "BLACK";
-    ctx.strokeRect(x*squareSize,y*squareSize,squareSize,squareSize);
-}
-
-// create the game grid
-
-let gameGrid = [];
-for( x = 0; x <ROW; x++){
-    gameGrid[x] = [];
-    for(y = 0; y < COLUMN; y++){
-        gameGrid[x][y] = EMPTY;
-    }
-}
-
-// draw the grid
-function drawGrid(){
-    for( r = 0; r <ROW; r++){
-        for(c = 0; c < COLUMN; c++){
-            drawSquare(c,r,gameGrid[r][c]);
-        }
-    }
-}
-
-drawGrid();
-
-// the pieces and their colors
-
-const PIECES = [
-    [Z,"red"],
-    [S,"green"],
-    [T,"yellow"],
-    [O,"blue"],
-    [L,"purple"],
-    [I,"cyan"],
-    [J,"orange"]
-];
-
-// generate random pieces
-
-function randomPiece(){
-    let r = randomN = Math.floor(Math.random() * PIECES.length) // 0 -> 6
-    return new Piece( PIECES[r][0],PIECES[r][1]);
-}
-
-let p = randomPiece();
-
-// The Object Piece
-
-function Piece(tetromino,color){
-    this.tetromino = tetromino;
-    this.color = color;
-    
-    this.tetrominoN = 0; // we start from the first pattern
-    this.activeTetromino = this.tetromino[this.tetrominoN];
-    
-    // we need to control the pieces
-    this.x = 3;
-    this.y = -2;
-}
-
-// fill function
-
-Piece.prototype.fill = function(color){
-    for( r = 0; r < this.activeTetromino.length; r++){
-        for(c = 0; c < this.activeTetromino.length; c++){
-            // we draw only occupied squares
-            if( this.activeTetromino[r][c]){
-                drawSquare(this.x + c,this.y + r, color);
-            }
-        }
-    }
-}
-
-// draw a piece to the game Grid
-
-Piece.prototype.draw = function(){
-    this.fill(this.color);
-}
-
-// undraw a piece
-
-
-Piece.prototype.unDraw = function(){
-    this.fill(EMPTY);
-}
-
-// move Down the piece
-
-Piece.prototype.moveDown = function(){
-    if(!this.collision(0,1,this.activeTetromino)){
-        this.unDraw();
-        this.y++;
-        this.draw();
-    }else{
-        // we lock the piece and generate a new one
-        this.lock();
-        p = randomPiece();
-    }
-    
-}
-
-// move Right the piece
-Piece.prototype.moveRight = function(){
-    if(!this.collision(1,0,this.activeTetromino)){
-        this.unDraw();
-        this.x++;
-        this.draw();
-    }
-}
-
-// move Left the piece
-Piece.prototype.moveLeft = function(){
-    if(!this.collision(-1,0,this.activeTetromino)){
-        this.unDraw();
-        this.x--;
-        this.draw();
-    }
-}
-
-// rotate the piece
-Piece.prototype.rotate = function(){
-    let nextPattern = this.tetromino[(this.tetrominoN + 1)%this.tetromino.length];
-    let kick = 0;
-    
-    if(this.collision(0,0,nextPattern)){
-        if(this.x > COLUMN/2){
-            // it's the right wall
-            kick = -1; // we need to move the piece to the left
-        }else{
-            // it's the left wall
-            kick = 1; // we need to move the piece to the right
-        }
-    }
-    
-    if(!this.collision(kick,0,nextPattern)){
-        this.unDraw();
-        this.x += kick;
-        this.tetrominoN = (this.tetrominoN + 1)%this.tetromino.length; // (0+1)%4 => 1
-        this.activeTetromino = this.tetromino[this.tetrominoN];
-        this.draw();
-    }
-}
-
+let playfield, fallingPiece, ghostPiece, paused;
 let score = 0;
+let gameOver = false;
+let ghostMode = true;
 
-Piece.prototype.lock = function(){
-    for( r = 0; r < this.activeTetromino.length; r++){
-        for(c = 0; c < this.activeTetromino.length; c++){
-            // we skip the vacant squares
-            if( !this.activeTetromino[r][c]){
-                continue;
-            }
-            // pieces to lock on top = game over
-            if(this.y + r < 0){
-                alert("Game Over");
-                // stop request animation frame
-                gameOver = true;
-                break;
-            }
-            // we lock the piece
-            gameGrid[this.y+r][this.x+c] = this.color;
-        }
+const width = 15;
+const height = 20;
+let prev = 0;
+
+
+class Game4 extends Component {
+
+    states = {
+        gp5: null,
+        cnv: null,
+    };
+
+    // ReactJS constructor
+    constructor(props) {
+        super(props);
+        console.log("game4");
     }
-    // remove full rows
-    let scoreTimerFlag = 0; 
-    for(r = 0; r < ROW; r++){
-        let isRowFull = true;
-        for( c = 0; c < COLUMN; c++){
-            isRowFull = isRowFull && (gameGrid[r][c] != EMPTY);
+
+    // Handles if a key is pressed
+    keyPressed = (key) => {
+        switch (key.key.toLowerCase()) {
+            case ' ':
+                this.hardDrop(fallingPiece, playfield);
+                this.spawnNewPiece(this.states.gp5);
+                break;
+
+            case 'r':
+                this.spawnNewPiece(this.states.gp5);
+                playfield.resetGrid();
+                break;
+
+            case 'p':
+                paused = !paused;
+                break;
+
+            case 'arrowup':
+                fallingPiece.rotateCW();
+                // if not valid, rotate back
+                if (!playfield.isValid(fallingPiece))
+                    fallingPiece.rotateCCW();
+                break;
+
+            case 'arrowdown':
+                fallingPiece.moveDown();
+                if (!playfield.isValid(fallingPiece))
+                    fallingPiece.moveUp()
+                else
+                    fallingPiece.resetBuffer()
+                break;
+
+            case 'arrowleft':
+                fallingPiece.moveLeft();
+                if (!playfield.isValid(fallingPiece))
+                    fallingPiece.moveRight()
+                break;
+
+            case 'arrowright':
+                fallingPiece.moveRight();
+                if (!playfield.isValid(fallingPiece))
+                    fallingPiece.moveLeft()
+                break;
+
+            default:
+                break;
+
         }
-        if(isRowFull){
-            // if the row is full
-            // we move down all the rows above it
-            for( y = r; y > 1; y--){
-                for( c = 0; c < COLUMN; c++){
-                    gameGrid[y][c] = gameGrid[y-1][c];
+
+
+    };
+
+    toggleGhost() {
+        ghostMode = !ghostMode;
+    }
+
+    hardDrop = (piece, playfield) => {
+        // move down as long as current position is valid
+        while (playfield.isValid(piece)) {
+            piece.moveDown();
+        }
+        // in the last iteration the position isn't valid,
+        // so move up
+        piece.moveUp();
+
+    }
+
+
+    spawnNewPiece = p5 => {
+
+        if (fallingPiece) {
+            playfield.addToGrid(fallingPiece);
+        }
+
+        const pieces = ['O', 'J', 'L', 'S', 'Z', 'T', 'I']
+        const choice = pieces[Math.floor(Math.random() * 7)];
+
+        fallingPiece = new Piece(choice, playfield, null, null, p5);
+
+
+        ghostPiece = new Piece(choice, playfield, null, null, p5);
+        ghostPiece.isghost = true;
+        ghostPiece.cells = fallingPiece.cells;
+
+        p5.redraw();
+    };
+
+    // Draw each frame
+    draw = p5 => {
+        gameOver = playfield.gameOver;
+        if (!gameOver) {
+
+            let curr = p5.millis();
+            let delta = curr - prev;
+            prev = curr;
+
+            if (!paused)
+                fallingPiece.update(delta);
+
+            // move down piece and spawn a new one
+            // if necessary
+            if (fallingPiece.timeToFall()) {
+                fallingPiece.resetBuffer();
+                fallingPiece.moveDown();
+
+                if (!playfield.isValid(fallingPiece)) {
+                    fallingPiece.moveUp();
+                    if (fallingPiece.y < 2) {
+                        console.log(fallingPiece.y);
+                        gameOver = true;
+                    } else {
+
+                        this.spawnNewPiece(p5);
+
+                    }
                 }
             }
-            // the top row gameGrid[0][..] has no row above it
-            for( c = 0; c < COLUMN; c++){
-                gameGrid[0][c] = EMPTY;
-            }
-            // increment the score
-            score += 10;
-            //TODO and Tetris bonus points
-            // if you update four rows then get extra points 
 
-            
-            if(score > (scoreTimerFlag +50))
-            {
-                scoreTimerFlag=scoreTimerFlag  +50;
-                timerElement = timerElement -50; 
+            // copy falligPiece's location and
+            // orientation, then hardDrop() it
+            // if ghostMode is on
+
+            ghostPiece.copy(fallingPiece)
+            this.hardDrop(ghostPiece, playfield);
+
+
+            let rowCount = 0;
+            for (let row = playfield.rows - 1; row >= 0; row--) {
+
+                // if this row is full
+                if (!playfield.grid[row].includes(playfield.foreground)) {
+                    // remove the row
+                    playfield.grid.splice(row, 1)
+                    // and add an empty row to the top
+                    playfield.grid.unshift(new Array(playfield.cols).fill(playfield.foreground));
+                    rowCount++;
+                }
+
             }
-            if(timerElement < 250)
-            {
-                timerElement = 250; 
-            }
+
+            score += rowCount * rowCount;
+            this.states.gp5.background(251);
+
+            playfield.show();
+            if (ghostMode) ghostPiece.show();
+            fallingPiece.show();
+
+            p5.fill(0);
+            p5.stroke(255);
+            p5.strokeWeight(3);
+            p5.textSize(20);
+            let text = 'Score: ' + score;
+            p5.text(text, 10, 30);
+        } else {
+            p5.fill(0);
+            p5.stroke(255);
+            p5.strokeWeight(3);
+            p5.textSize(20);
+            let text = 'Game Over'   ;
+            p5.text(text, 10, 55);
         }
     }
-    // update the game Grid
-    drawGrid();
-    
-    // update the score
-    scoreElement.innerHTML = score;
+
+    setup = p5 => {
+        playfield = new Playfield(width, height, p5);
+        this.states.gp5 = p5;
+        let totalWidth = playfield.cellSize * width + playfield.borderSize * 2;
+        let totalHeight = playfield.cellSize * height + playfield.borderSize * 2;
+        this.states.cnv = p5.createCanvas(totalWidth, totalHeight);
+        
+        var x = (p5.windowWidth - p5.width) / 2;
+        var y = (p5.windowHeight - p5.height) / 2+ 30;
+        this.states.cnv.position(x, y);
+        this.spawnNewPiece(p5);
+    }
+
+    centerCanvas = p5 => {
+        var x = (p5.windowWidth - p5.width) / 2;
+        var y = (p5.windowHeight - p5.height) / 2 + 30;
+        this.states.cnv.position(x, y);
+    }
+
+    // ReactJS render method
+    render() {
+        return ( 
+            <div>
+            <div className="game-container">
+                <div className="game">
+                    < Sketch setup = { this.setup } draw = { this.draw } keyPressed = { this.keyPressed } windowResized = {this.centerCanvas }/> 
+                </div> 
+            </div>
+        </div>
+        );
+    }
+
 }
 
-// collision fucntion
-
-Piece.prototype.collision = function(x,y,piece){
-    for( r = 0; r < piece.length; r++){
-        for(c = 0; c < piece.length; c++){
-            // if the square is empty, we skip it
-            if(!piece[r][c]){
-                continue;
-            }
-            // coordinates of the piece after movement
-            let newX = this.x + c + x;
-            let newY = this.y + r + y;
-            
-            // conditions
-            if(newX < 0 || newX >= COLUMN || newY >= ROW){
-                return true;
-            }
-            // skip newY < 0; gameGrid[-1] will crush our game
-            if(newY < 0){
-                continue;
-            }
-            // check if there is a locked piece alrady in place
-            if( gameGrid[newY][newX] != EMPTY){
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-// CONTROL the piece
-
-document.addEventListener("keydown",CONTROL);
-
-function CONTROL(event){
-    if(event.keyCode == 37){
-        p.moveLeft();
-        dropStart = Date.now();
-    }else if(event.keyCode == 38){
-        p.rotate();
-        dropStart = Date.now();
-    }else if(event.keyCode == 39){
-        p.moveRight();
-        dropStart = Date.now();
-    }else if(event.keyCode == 40){
-        p.moveDown();
-    }
-}
-
-// drop the piece every 1sec
-
-let dropStart = Date.now();
-let gameOver = false;
-let timerElement = 1000; 
-
-function drop(){
-    let now = Date.now();
-    let delta = now - dropStart;
-    if(delta > timerElement){
-        p.moveDown();
-        dropStart = Date.now();
-    }
-    if( !gameOver){
-        requestAnimationFrame(drop);
-    }
-}
-
-drop();
+export default Game4;

@@ -22,8 +22,69 @@ export default Game2;
 
 class Square extends React.Component {
   render() {
+    let bckColor;
+    if(this.props.value === 2)
+    {
+      bckColor = "#A6FF4D"
+    }
+    else if(this.props.value === 4)
+    {
+      bckColor = "#22CC00"
+    }
+    else if(this.props.value === 8)
+    {
+      bckColor = "#006633"
+    }
+    else if(this.props.value === 16)
+    {
+      bckColor = "#3355FF"
+    }
+    else if(this.props.value === 32)
+    {
+      bckColor = "#000099"
+    }
+    else if(this.props.value === 64)
+    {
+      bckColor = "#110033"
+    }
+    else if(this.props.value === 128)
+    {
+      bckColor = "#B30095"
+    }
+    else if(this.props.value === 256)
+    {
+      bckColor = "#800040"
+    }
+    else if(this.props.value === 512)
+    {
+      bckColor = "#99001A"
+    }
+    else if(this.props.value === 1024)
+    {
+      bckColor = "#FF5500"
+    }
+    else if(this.props.value === 2048)
+    {
+      bckColor = "#E6E600"
+    }
+    else if(this.props.value === 4096)
+    {
+      bckColor = "#093300"
+    }
+    else if(this.props.value === 8192)
+    {
+      bckColor = "#000000"
+    }
+    else
+    {
+      bckColor = "#FFFFB3"
+    }
+    const styles = {
+    background: bckColor,
+    color: 'white'
+  }
     return (
-      <div className="square">
+      <div className="square" style={styles}>
         {this.props.value}
       </div>
     );

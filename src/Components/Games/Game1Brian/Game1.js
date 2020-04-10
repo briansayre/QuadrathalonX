@@ -258,6 +258,8 @@ class Game1 extends Component {
     text += "Your score was " + this.states.score;
     text += "\n\n You let " + this.states.throughCount + " zombies get in the castle";
     p5.text(text, p5.width/2, 160);
+    p5.noLoop();
+
   }
 
   // Setup the sketch

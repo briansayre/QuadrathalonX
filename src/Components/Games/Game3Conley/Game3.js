@@ -224,32 +224,33 @@ class Game3 extends React.Component {
    }
 
    handleKeyPress(e) {
+     e.preventDefault();
      let {
        currentDirection
      } = this.state;
 
      switch (e.keyCode) {
        case 37:
-         if(currentDirection != 'right'){
+         if(currentDirection !== 'right'){
               currentDirection = 'left';
          }
          break;
 
        case 38:
-           if(currentDirection != 'down'){
+           if(currentDirection !== 'down'){
                 currentDirection = 'up';
            }
          break;
 
        case 39:
        default:
-         if(currentDirection != 'left'){
+         if(currentDirection !== 'left'){
               currentDirection = 'right';
          }
          break;
 
        case 40:
-         if(currentDirection != 'up'){
+         if(currentDirection !== 'up'){
               currentDirection = 'down';
          }
          break;

@@ -9,6 +9,7 @@ export default class Stone {
         this.x = x;
         this.y = y;
         this.p5 = p;
+        this.stone = this.p5.loadImage('./Images/stone.png');
     }
 
     // Checks if the stone should randomly spawn
@@ -23,9 +24,7 @@ export default class Stone {
 
     // Displays the stone on the canvas
     show() {
-        this.p5.noStroke();
-        this.p5.fill(100, 100, 100);
-        this.p5.ellipse(this.x, this.y, 15, 15);
+        this.p5.image(this.stone, this.x-15, this.y-15);
     }
 
 } 

@@ -4,13 +4,19 @@ body {
 }
 
 ol, ul {
-  padding-left: 30px;
+  padding-left: 90px;
 }
 
 .board-row:after {
   clear: both;
   content: "";
   display: table;
+}
+
+#score {
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .status {
@@ -23,13 +29,13 @@ ol, ul {
   float: left;
   font-size: 24px;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  line-height: 90px;
+  height: 90px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 90px;
 }
 
 .square:focus {
@@ -42,7 +48,14 @@ ol, ul {
 
 .game {
   display: flex;
+  justify-content: center;
   flex-direction: row;
+  
+  margin-left: 105px;
+}
+
+.game-board {
+  display: inline-block;
 }
 
 .game-info {

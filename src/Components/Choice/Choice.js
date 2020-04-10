@@ -16,7 +16,7 @@ class Choice extends Component {
 
             <div class="button-flex-item">
               <form action="/game1" method="get">
-                <button type="submit"> 
+                <button className="pink-button" type="submit"> 
                   PLAY
                 </button>
               </form>
@@ -24,7 +24,7 @@ class Choice extends Component {
 
             <div class="button-flex-item">
               <form action="/practice" method="get">
-                <button type="submit"> 
+                <button className="pink-button" type="submit"> 
                   PRACTICE
                 </button>
               </form>
@@ -32,7 +32,7 @@ class Choice extends Component {
 
             <div class="button-flex-item">
               <form action="/highscore" method="get">
-                <button type="submit"> 
+                <button className="pink-button" type="submit"> 
                   VIEW HIGH SCORES
                 </button>
               </form>

@@ -27,6 +27,7 @@ export default function Routes() {
       <Route path="/game2" exact component={Game2} />
       <Route path="/game3" exact component={Game3} />
       <Route path="/game4" exact component={Game4} />
+      
     </Switch>
   );
 

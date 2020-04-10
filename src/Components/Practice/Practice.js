@@ -11,7 +11,7 @@ class Practice extends Component {
         
           <div class="button-flex-item">
               <form action="/game1" method="get">
-                <button type="submit"> 
+                <button className="pink-button" type="submit"> 
                     GAME 1
                 </button>
               </form>
@@ -19,7 +19,7 @@ class Practice extends Component {
             
             <div class="button-flex-item">
               <form action="/game2" method="get">
-                <button type="submit"> 
+                <button className="pink-button" type="submit"> 
                     GAME 2
                 </button>
               </form>
@@ -27,7 +27,7 @@ class Practice extends Component {
             
             <div class="button-flex-item">
               <form action="/game3" method="get">
-                <button type="submit"> 
+                <button className="pink-button" type="submit"> 
                     GAME 3
                 </button>
               </form>
@@ -35,7 +35,7 @@ class Practice extends Component {
             
             <div class="button-flex-item">
               <form action="/game4" method="get">
-                <button type="submit"> 
+                <button className="pink-button" type="submit"> 
                     GAME 4
                 </button>
               </form>

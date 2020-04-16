@@ -1,0 +1,11 @@
+{
+    "body": "{\"game1score\":\"55\",\"game2score\":\"57\",\"game3score\":\"77\",\"game4score\":\"99\",\"totalscore\":\"680\"}",
+    "pathParameters": {
+      "id": "578eb840-f70f-11e6-9d1a-1359b3b22944"
+    },
+    "requestContext": {
+      "identity": {
+        "cognitoIdentityId": "USER-SUB-1234"
+      }
+    }
+  }

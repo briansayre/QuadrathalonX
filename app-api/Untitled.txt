@@ -1,0 +1,44 @@
+    Pool Id us-east-2_SGzRGUHPp
+    Pool ARN arn:aws:cognito-idp:us-east-2:192098159073:userpool/us-east-2_SGzRGUHPp
+    app client id = 47pdi77bs95b4d7ngkklefiuel
+
+Serverless: Stack update finished...
+Service Information
+service: app-api
+stage: prod
+region: us-east-2
+stack: app-api-prod
+resources: 38
+api keys:
+  None
+endpoints:
+  POST - https://3dkrzk1mh6.execute-api.us-east-2.amazonaws.com/prod/user
+  GET - https://3dkrzk1mh6.execute-api.us-east-2.amazonaws.com/prod/user/{id}
+  GET - https://3dkrzk1mh6.execute-api.us-east-2.amazonaws.com/prod/list
+  PUT - https://3dkrzk1mh6.execute-api.us-east-2.amazonaws.com/prod/user/{id}
+  DELETE - https://3dkrzk1mh6.execute-api.us-east-2.amazonaws.com/prod/user/{id}
+functions:
+  create: app-api-prod-create
+  get: app-api-prod-get
+  list: app-api-prod-list
+  update: app-api-prod-update
+  delete: app-api-prod-delete
+layers:
+  None
+
+
+Identity pool ID
+us-east-2:422c8ceb-3c07-4e51-bf77-327947f17be7
+
+npx aws-api-gateway-cli-test \
+--username='bsayre@iastate.edu' \
+--password='Passw0rd!' \
+--user-pool-id='us-east-2_SGzRGUHPp' \
+--app-client-id='47pdi77bs95b4d7ngkklefiuel' \
+--cognito-region='us-east-2' \
+--identity-pool-id='us-east-2:422c8ceb-3c07-4e51-bf77-327947f17be7' \
+--invoke-url='https://3dkrzk1mh6.execute-api.us-east-2.amazonaws.com/prod' \
+--api-gateway-region='us-east-2' \
+--path-template='/user' \
+--method='POST' \
+--body='{"game1score":"1","game2score":"2","game3score":"3","game4score":"4","totalscore":"10"}'

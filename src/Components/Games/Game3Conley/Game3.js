@@ -106,39 +106,21 @@ class Game3 extends React.Component {
          col
        };
 
-       // When game ove is shown, stop the tick
        if (state.die) {
          clearInterval(window.fnInterval);
        }
-
-       // Snake eats
-
-//       tail[0] = {
-//         row: head.row,
-//         col: head.col,
-//       }
-//       for (var i = 1; i < tail.length; i++) {
-//            let rowDiff = tail[i].row - tail[i - 1].row
-//            let colDiff = tail[i].col - tail[i - 1].col
-//
-//
-//       }
-//
-//       tail.forEach(t => {
-//
-//       })
-//
                    
        tail.unshift({
          row: head.row,
          col: head.col,
+         v: head.v
        })
 
        var wasFood = false
                    
        if(food.length === 0) {
            for (var i = 0; i < 10; i++) {
-                   food.push(this.getRandomGrid())
+                food.push(this.getRandomGrid())
            }
        }
                    
@@ -159,19 +141,35 @@ class Game3 extends React.Component {
        switch (currentDirection) {
          case 'left':
            head.col--;
+           head.v = {
+               x: -1,
+               y: 0
+           }
            break;
 
          case 'up':
            head.row--;
+           head.v = {
+               x: 0,
+               y: 1
+           }
            break;
 
          case 'down':
            head.row++;
+           head.v = {
+               x: 0,
+               y: -1
+           }
            break;
 
          case 'right':
          default:
            head.col++;
+           head.v = {
+               x: 1,
+               y: 0
+           }
            break;
        }
 
@@ -280,7 +278,14 @@ class Game3 extends React.Component {
          ...state,
          food: state.food,
          snake: {
-           head: this.getCenterOfGrid(),
+               head: {
+                   row: this.getCenterOfGrid().row,
+                   col: this.getCenterOfGrid().col,
+                   v: {
+                       x: 1,
+                       y: 0
+                   }
+                },
            tail: state.snake.tail
          }
        };

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './Game2.css';
 
 class Game2 extends Component {
+
+
    render() {
     return (
       <div className="game">
@@ -427,6 +429,8 @@ class Board extends React.Component {
           {this.renderSquare(this.state.grid[3][2])}
           {this.renderSquare(this.state.grid[3][3])}
         </div>
+
+        { (this.state.score > 100) && <a className="next-game" href="/game3"> Next Game </a>}
       </div>
     );
   }

@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import Sketch from "react-p5";
 import './Game4.css';
+import { useHistory } from "react-router";
 
 import Piece from "./Piece";
 import Playfield from "./Playfield";
@@ -15,29 +16,25 @@ const height = 20;
 let prev = 0;
 
 
-class Game4 extends Component {
+function Game4() {
+    const history = useHistory();
 
-    states = {
+    let states = {
         gp5: null,
         cnv: null,
     };
 
-    // ReactJS constructor
-    constructor(props) {
-        super(props);
-        console.log("game4");
-    }
 
     // Handles if a key is pressed
-    keyPressed = (key) => {
+    function keyPressed (key) {
         switch (key.key.toLowerCase()) {
             case ' ':
-                this.hardDrop(fallingPiece, playfield);
-                this.spawnNewPiece(this.states.gp5);
+                hardDrop(fallingPiece, playfield);
+                spawnNewPiece(states.gp5);
                 break;
 
             case 'r':
-                this.spawnNewPiece(this.states.gp5);
+                spawnNewPiece(states.gp5);
                 playfield.resetGrid();
                 break;
 
@@ -80,11 +77,8 @@ class Game4 extends Component {
 
     };
 
-    toggleGhost() {
-        ghostMode = !ghostMode;
-    }
 
-    hardDrop = (piece, playfield) => {
+    function hardDrop (piece, playfield) {
         // move down as long as current position is valid
         while (playfield.isValid(piece)) {
             piece.moveDown();
@@ -96,7 +90,7 @@ class Game4 extends Component {
     }
 
 
-    spawnNewPiece = p5 => {
+    function spawnNewPiece (p5) {
 
         if (fallingPiece) {
             playfield.addToGrid(fallingPiece);
@@ -116,7 +110,7 @@ class Game4 extends Component {
     };
 
     // Draw each frame
-    draw = p5 => {
+    function draw (p5) {
         gameOver = playfield.gameOver;
         if (!gameOver) {
 
@@ -140,7 +134,7 @@ class Game4 extends Component {
                         gameOver = true;
                     } else {
 
-                        this.spawnNewPiece(p5);
+                        spawnNewPiece(p5);
 
                     }
                 }
@@ -151,7 +145,7 @@ class Game4 extends Component {
             // if ghostMode is on
 
             ghostPiece.copy(fallingPiece)
-            this.hardDrop(ghostPiece, playfield);
+            hardDrop(ghostPiece, playfield);
 
 
             let rowCount = 0;
@@ -169,7 +163,7 @@ class Game4 extends Component {
             }
 
             score += rowCount * rowCount;
-            this.states.gp5.background(251);
+            states.gp5.background(251);
 
             playfield.show();
             if (ghostMode) ghostPiece.show();
@@ -188,40 +182,41 @@ class Game4 extends Component {
             p5.textSize(20);
             let text = 'Game Over'   ;
             p5.text(text, 10, 55);
+            history.push("/highscore");
         }
     }
 
-    setup = p5 => {
+    function setup (p5) {
         playfield = new Playfield(width, height, p5);
-        this.states.gp5 = p5;
+        states.gp5 = p5;
         let totalWidth = playfield.cellSize * width + playfield.borderSize * 2;
         let totalHeight = playfield.cellSize * height + playfield.borderSize * 2;
-        this.states.cnv = p5.createCanvas(totalWidth, totalHeight);
+        states.cnv = p5.createCanvas(totalWidth, totalHeight);
         
         var x = (p5.windowWidth - p5.width) / 2;
         var y = (p5.windowHeight - p5.height) / 2+ 30;
-        this.states.cnv.position(x, y);
-        this.spawnNewPiece(p5);
+        states.cnv.position(x, y);
+        spawnNewPiece(p5);
     }
 
-    centerCanvas = p5 => {
+    function centerCanvas (p5) {
         var x = (p5.windowWidth - p5.width) / 2;
         var y = (p5.windowHeight - p5.height) / 2 + 30;
-        this.states.cnv.position(x, y);
+        states.cnv.position(x, y);
     }
 
     // ReactJS render method
-    render() {
+    
         return ( 
             <div>
             <div className="game-container">
                 <div className="game">
-                    < Sketch setup = { this.setup } draw = { this.draw } keyPressed = { this.keyPressed } windowResized = {this.centerCanvas }/> 
+                    < Sketch setup = { setup } draw = { draw } keyPressed = { keyPressed } windowResized = {centerCanvas }/> 
                 </div> 
             </div>
         </div>
         );
-    }
+    
 
 }
 

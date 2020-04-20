@@ -1,8 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import './HighScore.css';
+//import { onError } from "../../libs/errorLib";
+//import { API } from "aws-amplify";
 
-class HighScore extends Component {
-  render() {
+
+function HighScore() {
+
     return (
       <div>
 
@@ -24,6 +27,6 @@ class HighScore extends Component {
 
       </div>
     );
-  }
+  
 }
 export default HighScore;

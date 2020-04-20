@@ -16,6 +16,9 @@
   flex-wrap: wrap;
   border: 1px solid black !important;
 }
+.grid-header {
+  color: white;
+}
 
 .gridItem {
   outline: 1px solid #eee;

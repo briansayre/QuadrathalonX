@@ -28,17 +28,34 @@ layers:
 
 
 Identity pool ID
-us-east-2:422c8ceb-3c07-4e51-bf77-327947f17be7
+us-east-2:b4469ea6-1c30-4971-921a-b414da8f9879
+
+
+Identity Pool ARN
+arn:aws:cognito-identity:us-east-2:192098159073:identitypool/us-east-2:b4469ea6-1c30-4971-921a-b414da8f9879
+
 
 npx aws-api-gateway-cli-test \
---username='bsayre@iastate.edu' \
---password='Passw0rd!' \
+--username='test@gmail.com' \
+--password='Password!1' \
 --user-pool-id='us-east-2_SGzRGUHPp' \
 --app-client-id='47pdi77bs95b4d7ngkklefiuel' \
 --cognito-region='us-east-2' \
---identity-pool-id='us-east-2:422c8ceb-3c07-4e51-bf77-327947f17be7' \
+--identity-pool-id='us-east-2:b4469ea6-1c30-4971-921a-b414da8f9879' \
 --invoke-url='https://3dkrzk1mh6.execute-api.us-east-2.amazonaws.com/prod' \
 --api-gateway-region='us-east-2' \
 --path-template='/user' \
 --method='POST' \
 --body='{"game1score":"1","game2score":"2","game3score":"3","game4score":"4","totalscore":"10"}'
+
+
+aws cognito-idp sign-up \
+  --region us-east-2 \
+  --client-id 47pdi77bs95b4d7ngkklefiuel \
+  --username admin@example.com \
+  --password Passw0rd!
+
+  aws cognito-idp admin-confirm-sign-up \
+  --region us-east-2 \
+  --user-pool-id us-east-2_SGzRGUHPp \
+  --username admin@example.com

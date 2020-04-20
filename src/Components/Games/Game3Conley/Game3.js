@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import './Game3.css';
 
 class Game3 extends React.Component {
@@ -331,6 +331,7 @@ class Game3 extends React.Component {
            <h1>Your score: {this.state.score}</h1>
          </div>
          <div className="grid">{gridContent}</div>
+         { (this.state.score > 100) && <a className="next-game" href="/game4"> Next Game </a>}
        </div>
      );
    }  }

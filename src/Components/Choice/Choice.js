@@ -1,8 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
+import { useAppContext } from "../../libs/contextLib";
+import { Auth } from "aws-amplify";
 import './Choice.css';
+import { useHistory } from "react-router-dom";
 
-class Choice extends Component {
-  render() {
+
+
+
+export default function Choice() {
+
+  const { userHasAuthenticated } = useAppContext();
+  const history = useHistory();
+
+  async function handleLogout() {
+    await Auth.signOut();
+    userHasAuthenticated(false);
+    history.push("/");
+  }
+  
+  
     return (
       <div>
 
@@ -38,11 +54,22 @@ class Choice extends Component {
               </form>
             </div>
 
+
+          <br />
+          <br />
+
+
+            <div class="button-flex-item">
+                <button onClick={handleLogout}> 
+                  LOGOUT
+                </button>
+            </div>
+
+            
+
           </div>
         
         </div> 
       </div>
     );
-  }
 }
-export default Choice;

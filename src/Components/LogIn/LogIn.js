@@ -68,7 +68,7 @@ export default function Login() {
     );
     } else {
       return (
-        <h1> LOADING</h1>
+        <h1 className="loading"> LOADING</h1>
       );
     }
   

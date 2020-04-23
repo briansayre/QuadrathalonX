@@ -8,11 +8,10 @@ import { Auth } from "aws-amplify";
 
 
 function App() {
+  
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
 
-
-  
   React.useEffect(() => {
     onLoad();
   }, []);

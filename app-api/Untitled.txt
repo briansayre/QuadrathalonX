@@ -36,8 +36,8 @@ arn:aws:cognito-identity:us-east-2:192098159073:identitypool/us-east-2:b4469ea6-
 
 
 npx aws-api-gateway-cli-test \
---username='test@gmail.com' \
---password='Password!1' \
+--username='briansayre01@gmail.com' \
+--password='Passw0rd!' \
 --user-pool-id='us-east-2_SGzRGUHPp' \
 --app-client-id='47pdi77bs95b4d7ngkklefiuel' \
 --cognito-region='us-east-2' \

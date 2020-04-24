@@ -29,13 +29,15 @@ Amplify.configure({
 
 ReactDOM.render(
     <Router>
-      
-      <div className="header"> 
+
+      <div className="header">
+      <a href="/choice"> 
         QUAD <br/>
         RATH <br />
         ALON <br />
+      </a>
       </div>
-
+      
       <App />
 
     </Router>,

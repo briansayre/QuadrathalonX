@@ -3,7 +3,6 @@ import './HighScore.css';
 import { onError } from "../../libs/errorLib";
 import { useAppContext } from "../../libs/contextLib";
 import { API } from "aws-amplify";
-//import { useHistory } from "react-router";
 
 
 function HighScore() {
@@ -55,7 +54,6 @@ function HighScore() {
         allscores.push(loadedLeaderboard[i].highscore);
       }
       allscores.sort();
-      allscores.reverse();
       allscores.splice(10);
       setLeaderboard(allscores);
 

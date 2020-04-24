@@ -1,0 +1,5 @@
+- Add images to replace the circles and sqaures
+
+POSIBILITES
+- Add a trap that kills zombies
+- bonus points that randomly spawn

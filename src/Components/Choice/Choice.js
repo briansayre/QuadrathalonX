@@ -3,6 +3,7 @@ import { useAppContext } from "../../libs/contextLib";
 import { Auth } from "aws-amplify";
 import './Choice.css';
 import { useHistory } from "react-router-dom";
+import { API } from "aws-amplify";
 
 
 
@@ -13,8 +14,12 @@ export default function Choice() {
   const history = useHistory();
   const [user, setUser] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [highscoreurl, sethighscoreurl] = useState([]);
   
+  function loadScores() {
+    return API.get("user", "/list");
+  }
+
   async function handleLogout() {
     await Auth.signOut();
     userHasAuthenticated(false);
@@ -30,6 +35,9 @@ export default function Choice() {
     try {
       const user = await loadUser();
       setUser(user.attributes);
+      const loaded = await loadScores();
+      const hsu = "/highscore/"+loaded[0].game1score+"/"+loaded[0].game2score+"/"+loaded[0].game3score+"/"+loaded[0].game4score;
+      sethighscoreurl(hsu);
     } catch (e) {
       alert(e);
     }
@@ -44,7 +52,7 @@ export default function Choice() {
       <div>
          { (user.name != null) ?
             <p class="home-text">
-              Hello, {user.name}. You can either play for a high <br /> score or practice an individual game.
+              Hello, {user.name}. <br />You can either play for a high score <br />  or practice an individual game.
             </p>
             :
             <p class="home-text">
@@ -73,7 +81,7 @@ export default function Choice() {
             </div>
 
             <div class="button-flex-item">
-              <form action="/highscore/0/0/0/0" method="get">
+              <form action={highscoreurl} method="get">
                 <button className="pink-button" type="submit"> 
                   VIEW HIGH SCORES
                 </button>

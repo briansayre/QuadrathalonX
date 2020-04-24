@@ -109,7 +109,7 @@ class Game3 extends React.Component {
        if (state.die) {
          clearInterval(window.fnInterval);
        }
-                   
+
        tail.unshift({
          row: head.row,
          col: head.col,
@@ -117,20 +117,20 @@ class Game3 extends React.Component {
        })
 
        var wasFood = false
-                   
+
        if(food.length === 0) {
            for (var i = 0; i < 10; i++) {
                 food.push(this.getRandomGrid())
            }
        }
-                   
+
         food = food.filter(function(f) {
             if (f.row === head.row && f.col === head.col) {
                wasFood = true;
             }
             return !(f.row === head.row && f.col === head.col);
         });
-                   
+
        if (wasFood) {
             food.push(this.getRandomGrid())
        } else {
@@ -184,21 +184,28 @@ class Game3 extends React.Component {
 
        // In new state, check if die conditions are met
        let die = false;
-       if (newState.snake.head.row < 0) {
-            newState.snake.head.row = this.state.rows - 1
-       }
-       if (newState.snake.head.row > this.state.rows - 1) {
-            newState.snake.head.row = 0
-       }
-       if (newState.snake.head.col < 0) {
-            newState.snake.head.col = this.state.rows - 1
-       }
-       if (newState.snake.head.col > this.state.rows - 1) {
-            newState.snake.head.col = 0
-       }
-                   
+       tail.forEach(t => {
+         if (t.row === newState.snake.head.row && t.col === newState.snake.head.col) {
+          die = true;
+         }
+       })
+
+
+       // if (newState.snake.head.row < 0) {
+       //      newState.snake.head.row = this.state.rows - 1
+       // }
+       // if (newState.snake.head.row > this.state.rows - 1) {
+       //      newState.snake.head.row = 0
+       // }
+       // if (newState.snake.head.col < 0) {
+       //      newState.snake.head.col = this.state.rows - 1
+       // }
+       // if (newState.snake.head.col > this.state.rows - 1) {
+       //      newState.snake.head.col = 0
+       // }
+
    // Code for killing on wall imact
-   /*
+
        if (newState.snake.head.row < 0 ||
          newState.snake.head.row >= this.state.rows ||
          newState.snake.head.col < 0 ||
@@ -206,7 +213,7 @@ class Game3 extends React.Component {
        ) {
          die = true;
        }
-    */
+
 
        const grid = this.resetGrid(newState, true);
        const score = newState.snake.tail.length * newState.scoreFactor;
@@ -335,5 +342,5 @@ class Game3 extends React.Component {
        </div>
      );
    }  }
-  
+
 export default Game3;

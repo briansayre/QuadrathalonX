@@ -1,5 +1,5 @@
 {
-    "body": "{\"game1score\":\"1\",\"game2score\":\"2\",\"game3score\":\"3\",\"game4score\":\"4\",\"totalscore\":\"10\"}",
+    "body": "{\"game1score\":\"1\",\"game2score\":\"2\",\"game3score\":\"3\",\"game4score\":\"4\",\"totalscore\":\"10\",\"highscore\":\"10\"}",
     "requestContext": {
       "identity": {
         "cognitoIdentityId": "USER-SUB-poop"

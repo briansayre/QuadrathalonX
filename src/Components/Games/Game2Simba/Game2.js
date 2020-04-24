@@ -9,7 +9,7 @@ class Game2 extends Component {
     return (
       <div className="game">
         <div className="game-board">
-          <Board />
+          <Board g1s={this.props.match.params.g1s} />
         </div>
         <div className="game-info">
           <div>{/* status */}</div>
@@ -430,7 +430,7 @@ class Board extends React.Component {
           {this.renderSquare(this.state.grid[3][3])}
         </div>
 
-        { (this.state.score > 100) && <a className="next-game" href="/game3"> Next Game </a>}
+        { (this.state.score > 100) && <a className="next-game" href={"/game3/" + this.props.g1s + "/" + this.state.score}> Next Game </a>}
       </div>
     );
   }

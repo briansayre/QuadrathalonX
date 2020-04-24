@@ -1,7 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 import Sketch from "react-p5";
 import './Game4.css';
-import { useHistory } from "react-router";
 
 import Piece from "./Piece";
 import Playfield from "./Playfield";
@@ -16,25 +15,30 @@ const height = 20;
 let prev = 0;
 
 
-function Game4() {
-    const history = useHistory();
+class Game4 extends Component {
 
-    let states = {
+    states = {
         gp5: null,
         cnv: null,
+        game_over: null,
     };
 
+    // ReactJS constructor
+    constructor(props) {
+        super(props);
+        console.log("game4");
+    }
 
     // Handles if a key is pressed
-    function keyPressed (key) {
+    keyPressed = (key) => {
         switch (key.key.toLowerCase()) {
             case ' ':
-                hardDrop(fallingPiece, playfield);
-                spawnNewPiece(states.gp5);
+                this.hardDrop(fallingPiece, playfield);
+                this.spawnNewPiece(this.states.gp5);
                 break;
 
             case 'r':
-                spawnNewPiece(states.gp5);
+                this.spawnNewPiece(this.states.gp5);
                 playfield.resetGrid();
                 break;
 
@@ -77,8 +81,15 @@ function Game4() {
 
     };
 
+    mousePressed = (key) => {
+        
+    }
 
-    function hardDrop (piece, playfield) {
+    toggleGhost() {
+        ghostMode = !ghostMode;
+    }
+
+    hardDrop = (piece, playfield) => {
         // move down as long as current position is valid
         while (playfield.isValid(piece)) {
             piece.moveDown();
@@ -90,7 +101,7 @@ function Game4() {
     }
 
 
-    function spawnNewPiece (p5) {
+    spawnNewPiece = p5 => {
 
         if (fallingPiece) {
             playfield.addToGrid(fallingPiece);
@@ -110,7 +121,7 @@ function Game4() {
     };
 
     // Draw each frame
-    function draw (p5) {
+    draw = p5 => {
         gameOver = playfield.gameOver;
         if (!gameOver) {
 
@@ -132,9 +143,10 @@ function Game4() {
                     if (fallingPiece.y < 2) {
                         console.log(fallingPiece.y);
                         gameOver = true;
+                        this.states.game_over = true;
                     } else {
 
-                        spawnNewPiece(p5);
+                        this.spawnNewPiece(p5);
 
                     }
                 }
@@ -145,7 +157,7 @@ function Game4() {
             // if ghostMode is on
 
             ghostPiece.copy(fallingPiece)
-            hardDrop(ghostPiece, playfield);
+            this.hardDrop(ghostPiece, playfield);
 
 
             let rowCount = 0;
@@ -163,7 +175,7 @@ function Game4() {
             }
 
             score += rowCount * rowCount;
-            states.gp5.background(251);
+            this.states.gp5.background(251);
 
             playfield.show();
             if (ghostMode) ghostPiece.show();
@@ -180,43 +192,50 @@ function Game4() {
             p5.stroke(255);
             p5.strokeWeight(3);
             p5.textSize(20);
-            let text = 'Game Over'   ;
+            let text = 'Game Over';
             p5.text(text, 10, 55);
-            history.push("/highscore");
         }
     }
 
-    function setup (p5) {
+    setup = p5 => {
         playfield = new Playfield(width, height, p5);
-        states.gp5 = p5;
+        this.states.gp5 = p5;
         let totalWidth = playfield.cellSize * width + playfield.borderSize * 2;
         let totalHeight = playfield.cellSize * height + playfield.borderSize * 2;
-        states.cnv = p5.createCanvas(totalWidth, totalHeight);
+        this.states.cnv = p5.createCanvas(totalWidth, totalHeight);
         
         var x = (p5.windowWidth - p5.width) / 2;
-        var y = (p5.windowHeight - p5.height) / 2+ 30;
-        states.cnv.position(x, y);
-        spawnNewPiece(p5);
+        var y = (p5.windowHeight - p5.height) / 2+ 100;
+        this.states.cnv.position(x, y);
+        this.spawnNewPiece(p5);
     }
 
-    function centerCanvas (p5) {
+    centerCanvas = p5 => {
         var x = (p5.windowWidth - p5.width) / 2;
-        var y = (p5.windowHeight - p5.height) / 2 + 30;
-        states.cnv.position(x, y);
+        var y = (p5.windowHeight - p5.height) / 2 + 100;
+        this.states.cnv.position(x, y);
     }
 
     // ReactJS render method
+    render() {
+            return ( 
+                <div>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <a className="next-game4" id="game4nextgame" href={"/highscore/"+this.props.match.params.g1s+"/"+this.props.match.params.g2s+"/"+this.props.match.params.g2s+"/"+score}> Next Game </a>
+                 
+                <div className="game-container">
+                    <div className="game">
+                        < Sketch setup = { this.setup } draw = { this.draw } keyPressed = { this.keyPressed } mousePressed = {this.mousePressed} windowResized = {this.centerCanvas }/> 
+                     </div> 
     
-        return ( 
-            <div>
-            <div className="game-container">
-                <div className="game">
-                    < Sketch setup = { setup } draw = { draw } keyPressed = { keyPressed } windowResized = {centerCanvas }/> 
-                </div> 
-            </div>
-        </div>
-        );
-    
+                </div>
+                </div>
+            );
+
+        
+        
+        
+    }
 
 }
 

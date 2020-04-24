@@ -42,10 +42,15 @@ export default function Choice() {
   if (!isLoading) {
     return (
       <div>
-
-        <p class="home-text">
-            Hello, {user.name}. You can either play for a high <br /> score or practice an individual game.
-        </p>
+         { (user.name != null) ?
+            <p class="home-text">
+              Hello, {user.name}. You can either play for a high <br /> score or practice an individual game.
+            </p>
+            :
+            <p class="home-text">
+                Hello. You can either play for a high <br /> score or practice an individual game.
+            </p>
+          }
 
         <div class="button-flex-container">
         
@@ -68,7 +73,7 @@ export default function Choice() {
             </div>
 
             <div class="button-flex-item">
-              <form action="/highscore" method="get">
+              <form action="/highscore/0/0/0/0" method="get">
                 <button className="pink-button" type="submit"> 
                   VIEW HIGH SCORES
                 </button>
@@ -76,7 +81,7 @@ export default function Choice() {
             </div>
 
             <div class="button-flex-item">
-              <form action="/highscore" method="get">
+              <form>
                 <button className="pink-button" onClick={handleLogout}> 
                   LOGOUT
                 </button>
@@ -90,7 +95,7 @@ export default function Choice() {
     );
   } else {
     return (
-      <h1 className="loading"> LOADING</h1>
+      <h1 className="loading"> LOADING </h1>
     );
   }
 }

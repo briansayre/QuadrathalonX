@@ -257,7 +257,7 @@ function Game1() {
     text += "\n\n You let " + states.throughCount + " enemies get in the castle";
     p5.text(text, p5.width/2, 160);
     p5.noLoop();
-    history.push("/game2");
+    history.push("/game2/"+states.score.toString());
   }
 
   // Setup the sketch

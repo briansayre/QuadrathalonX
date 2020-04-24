@@ -22,11 +22,11 @@ export default function Routes() {
       <Route path="/guest" exact component={Guest} />
       <Route path="/choice" exact component={Choice} />
       <Route path="/practice" exact component={Practice} />
-      <Route path="/highscore" exact component={HighScore} />
       <Route path="/game1" exact component={Game1} />
-      <Route path="/game2" exact component={Game2} />
-      <Route path="/game3" exact component={Game3} />
-      <Route path="/game4" exact component={Game4} />
+      <Route path="/game2/:g1s" exact component={Game2} />
+      <Route path="/game3/:g1s/:g2s" exact component={Game3} />
+      <Route path="/game4/:g1s/:g2s/:g3s" exact component={Game4} />
+      <Route path="/highscore/:g1s/:g2s/:g3s/:g4s" exact component={HighScore} />
       
     </Switch>
   );

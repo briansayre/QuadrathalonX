@@ -19,7 +19,7 @@ export default function SignUp() {
   const { userHasAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
 
-  /*
+  
   function validateForm() {
     return (
       email.length > 0 &&
@@ -31,7 +31,7 @@ export default function SignUp() {
   function validateConfirmationForm() {
     return confirmationCode.length > 0;
   }
-  */
+  
   async function handleSubmit(event) {
     event.preventDefault();
   
@@ -97,7 +97,7 @@ export default function SignUp() {
           
               <div class="button-flex-item">
                 <form onSubmit={handleConfirmationSubmit}>
-                  <button className="pink-button" type="submit"> 
+                  <button className="pink-button" disabled={!validateConfirmationForm()}  type="submit"> 
                     SIGN UP
                   </button>
                 </form>
@@ -164,7 +164,7 @@ export default function SignUp() {
         
             <div class="button-flex-item">
               <form form onSubmit={handleSubmit}>
-                <button className="pink-button" type="submit"> 
+                <button disabled={!validateForm()} className="pink-button" type="submit"> 
                   NEXT
                 </button>
               </form>

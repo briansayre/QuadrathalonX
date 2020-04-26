@@ -10,6 +10,7 @@ export const main = handler(async (event) => {
     Item: {
       userId: event.requestContext.identity.cognitoIdentityId,
       scoreId: uuid.v1(),
+      name: data.name,
       highscore: data.highscore,
       game1score: data.game1score,
       game2score: data.game2score,

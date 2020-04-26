@@ -430,7 +430,7 @@ class Board extends React.Component {
           {this.renderSquare(this.state.grid[3][3])}
         </div>
 
-        { (this.state.score > 100) && <a className="next-game" href={"/game3/" + this.props.g1s + "/" + this.state.score}> Next Game </a>}
+        <a className="next-game" id="game2" href={"/game3/"+this.props.g1s+"/"+this.state.score}> NEXT GAME </a>
       </div>
     );
   }

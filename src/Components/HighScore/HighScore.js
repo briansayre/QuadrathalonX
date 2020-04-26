@@ -3,22 +3,24 @@ import './HighScore.css';
 import { onError } from "../../libs/errorLib";
 import { useAppContext } from "../../libs/contextLib";
 import { API } from "aws-amplify";
+import { Auth } from "aws-amplify";
 
 
 function HighScore() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [scores, setScores] = useState([]);
+  const [user, setUser] = useState([]);
   const [leaderboard, setLeaderboard] = useState([]);
   const { isAuthenticated } = useAppContext();
-  let allscores = [];
+
 
   React.useEffect(() => {
-    onLoad();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  async function onLoad() {
+    function loadUser() {
+      return Auth.currentAuthenticatedUser({bypassCache: true});
+      
+    }
+    async function onLoad() {
     
     setIsLoading(true);
 
@@ -27,6 +29,8 @@ function HighScore() {
     }
 
     try {
+      const user = await loadUser();
+      setUser(user.attributes);
       let url = window.location.href.split('highscore')[1];
       let prevScores = url.split('/');
       prevScores.splice(0,1);
@@ -39,31 +43,36 @@ function HighScore() {
       const loaded = await loadScores();
       console.log(loaded[0].highscore)
       if (loaded[0].highscore == null || (g1s+g2s+g3s+g4s) > loaded[0].highscore) {
-        await createScore({"highscore":(g1s+g2s+g3s+g4s), "game1score":g1s,"game2score":g2s,"game3score":g3s,"game4score":g4s});
+        await createScore({"name":user.attributes.name, "highscore":(g1s+g2s+g3s+g4s), "game1score":g1s,"game2score":g2s,"game3score":g3s,"game4score":g4s});
       } else {
-        await createScore({"highscore":loaded[0].highscore, "game1score":g1s,"game2score":g2s,"game3score":g3s,"game4score":g4s});
+        await createScore({"name":user.attributes.name, "highscore":loaded[0].highscore, "game1score":g1s,"game2score":g2s,"game3score":g3s,"game4score":g4s});
       }
       const finalloaded = await loadScores();
       setScores(finalloaded[0]);
 
-      const loadedLeaderboard = await loadLeaderboard();
+      let loadedLeaderboard = await loadLeaderboard();
+      loadedLeaderboard.sort(compare)
+      console.log(loadedLeaderboard)
+      loadedLeaderboard.splice(5);
+      //loadedLeaderboard.reverse();
       setLeaderboard(loadedLeaderboard);
-      console.log(loadedLeaderboard);
-
-      for (let i = 0; i < loadedLeaderboard.length; i++) {
-        allscores.push(loadedLeaderboard[i].highscore);
-      }
-      allscores.sort();
-      allscores.splice(10);
-      setLeaderboard(allscores);
 
       setIsLoading(false);
     } catch (e) {
       onError(e);
       console.log(e);
       setIsLoading(false);
-    }
+    }}
+
+    onLoad();
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
+  function compare( a, b ) {
+    return b.highscore-a.highscore;
   }
+
   
   function createScore(score) {
     return API.post("user", "/user", {
@@ -90,36 +99,63 @@ function HighScore() {
   function renderScores() {
 
     return (
-      <div>
-        <p className="score-text">
-            Your high score
-        </p>
-        <h1 className="score">{ scores.highscore } </h1>
-        <br />
-        <p className="score-text">
-            Your most recent score
-        </p>
-        <h1 className="score"> { scores.totalscore } </h1>
-        <br />
-        <p className="score-text">
-            High Scores
-        </p>
-        <div>
-          <ol>
-          {leaderboard.map(function(item, index){
-            return (<h1 className="score"><li className="score-text" key={Math.random}>{item}</li></h1>)
-          })}
-          </ol>
-        </div>
+      <div class="button-flex-container">
+  
+          <div class="row"> 
+
+            <div class="button-flex-item">
+              <p className="score-text">
+                  {user.name}'s Scores
+              </p>
+            </div>
+
+            <div class="button-flex-item">
+              <table>
+                <tr>
+                  <th>High Score</th>
+                  <th>Most Recent</th>
+                </tr>
+                <tr>
+                  <td>{scores.highscore}</td>
+                  <td>{scores.totalscore}</td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="button-flex-item">
+              <p className="score-text">
+                  High Scores
+              </p>
+            </div>
 
         <div class="button-flex-item">
+          <table>
+          <tr>
+            <th>Rank</th>
+            <th>Score</th>
+            <th>Name</th>
+          </tr>
+          {leaderboard.map(function(item, index){
+            return (
+            <tr key={index}>
+              <td>{index+1}</td>
+              <td>{item.highscore}</td>
+              <td>{item.name}</td>
+            </tr>
+            )
+          })}
+          </table>
+        </div>
+          <br/>
+        <div class="button-flex-item">
           <form action="/choice" method="get">
-            <button className="pink-button" type="submit"> 
+            <button className="pink-button" id="back-button" type="submit"> 
               BACK
             </button>
           </form>
         </div>
 
+        </div>
       </div>
     );
 

@@ -20,6 +20,12 @@ export default function Choice() {
     return API.get("user", "/list");
   }
 
+  function createScore(score) {
+    return API.post("user", "/user", {
+      body: score
+    });
+  }
+
   async function handleLogout() {
     await Auth.signOut();
     userHasAuthenticated(false);
@@ -32,18 +38,31 @@ export default function Choice() {
     
   }
   async function onLoad() {
+    
+    setIsLoading(true);
     try {
       const user = await loadUser();
       setUser(user.attributes);
-      const loaded = await loadScores();
-      const hsu = "/highscore/"+loaded[0].game1score+"/"+loaded[0].game2score+"/"+loaded[0].game3score+"/"+loaded[0].game4score;
-      sethighscoreurl(hsu);
+      if (userHasAuthenticated) {
+        let hsu ="";
+        const loaded = await loadScores();
+        if (loaded[0] === undefined ) {
+          await createScore({"name":user.attributes.name, "highscore":0, "game1score":0,"game2score":0,"game3score":0,"game4score":0});
+          hsu = "/highscore/0/0/0/0";
+        } else {
+          hsu = "/highscore/"+loaded[0].game1score+"/"+loaded[0].game2score+"/"+loaded[0].game3score+"/"+loaded[0].game4score;
+        }
+        sethighscoreurl(hsu);
+      }
     } catch (e) {
       alert(e);
     }
     setIsLoading(false);
   }
   onLoad();
+
+  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   

@@ -167,3 +167,23 @@ button {
   text-align: center;
   color: white;
 }
+
+.next-game {
+  display: inline-block;
+  padding-top: 12px;
+  height: 30px;
+  width: 200px;
+}
+
+#game1 {
+  margin-left: 200px;
+}
+
+#game2 {
+  margin-left: 50px;
+}
+
+#game4 {
+  margin-top: 500px;
+  margin-left: 20px;
+}

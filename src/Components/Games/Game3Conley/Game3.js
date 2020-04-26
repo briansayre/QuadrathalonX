@@ -338,8 +338,8 @@ class Game3 extends React.Component {
            <h1>Your score: {this.state.score}</h1>
          </div>
          <div className="grid">{gridContent}</div>
-         { (this.state.score > 100) && <a className="next-game" href={"/game4/"+this.props.match.params.g1s+"/"+this.props.match.params.g2s+"/"+this.state.score}> Next Game </a>}
-       </div>
+         <a className="next-game" href={"/game4/"+this.props.match.params.g1s+"/"+this.props.match.params.g2s+"/"+this.state.score}> NEXT GAME </a>
+        </div>
      );
    }  }
 

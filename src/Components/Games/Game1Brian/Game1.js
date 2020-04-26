@@ -1,35 +1,39 @@
-import React from "react";
+import React, { Component } from "react";
 import Sketch from "react-p5";
 import './Game1.css';
 import Zombie from './Zombie';
 import Mega from './Mega';
 import Wall from "./Wall";
 import Stone from "./Stone";
-import { useHistory } from "react-router";
 
 
-function Game1() {
-
-  const history = useHistory();
+class Game1 extends Component {
+  state = {
+    sscore: 0
+  }
   // States of the game
-  let states = {
+  states = {
     gameOver: false,
     gameStarted: false,
     zombies: [],
     megas: [],
     walls: [],
     stones: [],
-    time: 10,
+    time: 60,
     timer: 0,
     score: 0,
     stone: 0,
     throughCount: 0,
   };
 
-  
+  // ReactJS constructor
+  constructor(props) {
+    super(props);
+    console.log("game1");
+  }
 
   // Draws the background of the game
-  function drawBackground (p5) {
+  drawBackground = (p5) => {
 
     // draw the grass
     p5.noStroke();
@@ -53,153 +57,153 @@ function Game1() {
   }
 
   // Draws the enemies onto the screen
-  function drawEnemies (p5) {
+  drawEnemies = (p5) => {
 
     // draw the zombies
-    for (let i = states.zombies.length-1; i >=0; i--) {
+    for (let i = this.states.zombies.length-1; i >=0; i--) {
       // check if zombie has run into wall
-      if (states.zombies[i].y < 345 || states.zombies[i].throughWall) {
-        states.zombies[i].move();
+      if (this.states.zombies[i].y < 345 || this.states.zombies[i].throughWall) {
+        this.states.zombies[i].move();
         // remove zombie that is off screen
-        if (states.zombies[i].y > 450) {
-          states.zombies.splice(i, 1);
-          states.score -= 1;
-          states.throughCount++;
+        if (this.states.zombies[i].y > 450) {
+          this.states.zombies.splice(i, 1);
+          this.states.score -= 1;
+          this.states.throughCount++;
         }
       // hit wall
       } else {
-        states.zombies[i].y = 345;
+        this.states.zombies[i].y = 345;
         // wall is broken
-        if (states.walls[states.zombies[i].col].status === 0) {
-          states.zombies[i].move();
-          states.zombies[i].throughWall = true;
+        if (this.states.walls[this.states.zombies[i].col].status === 0) {
+          this.states.zombies[i].move();
+          this.states.zombies[i].throughWall = true;
         // wall isn't broken
         } else {
-          states.walls[states.zombies[i].col].hit();
+          this.states.walls[this.states.zombies[i].col].hit();
         }
       }
-      states.zombies[i].show();
+      this.states.zombies[i].show();
     }
 
     // draw the megas
-    for (let i = states.megas.length-1; i >=0; i--) {
+    for (let i = this.states.megas.length-1; i >=0; i--) {
 
       // check if mega has run into wall
-      if (states.megas[i].y < 315 || states.megas[i].throughWall) {
-        states.megas[i].move();
+      if (this.states.megas[i].y < 315 || this.states.megas[i].throughWall) {
+        this.states.megas[i].move();
         // remove mega that is off screen
-        if (states.megas[i].y > 510) {
-          states.megas.splice(i, 1);
-          states.score -= 3;
-          states.throughCount++;
+        if (this.states.megas[i].y > 510) {
+          this.states.megas.splice(i, 1);
+          this.states.score -= 3;
+          this.states.throughCount++;
         }
       // hit wall
       } else {
         // check if all walls are broken
         let allBroken = false;
-        if (states.walls[states.megas[i].col[0]].status === 0 && 
-          states.walls[states.megas[i].col[1]].status === 0 && 
-          states.walls[states.megas[i].col[2]].status === 0) {
+        if (this.states.walls[this.states.megas[i].col[0]].status === 0 && 
+          this.states.walls[this.states.megas[i].col[1]].status === 0 && 
+          this.states.walls[this.states.megas[i].col[2]].status === 0) {
           allBroken = true;
         }
         // wall is broken
         if (allBroken) {
-          states.megas[i].move();
-          states.megas[i].throughWall = true;
+          this.states.megas[i].move();
+          this.states.megas[i].throughWall = true;
         // wall isn't broken
         } else {
-          if (states.walls[states.megas[i].col[0]].status !== 0) 
-            states.walls[states.megas[i].col[0]].hit();
-          if (states.walls[states.megas[i].col[1]].status !== 0) 
-            states.walls[states.megas[i].col[1]].hit();
-          if (states.walls[states.megas[i].col[2]].status !== 0) 
-            states.walls[states.megas[i].col[2]].hit();
+          if (this.states.walls[this.states.megas[i].col[0]].status !== 0) 
+            this.states.walls[this.states.megas[i].col[0]].hit();
+          if (this.states.walls[this.states.megas[i].col[1]].status !== 0) 
+            this.states.walls[this.states.megas[i].col[1]].hit();
+          if (this.states.walls[this.states.megas[i].col[2]].status !== 0) 
+            this.states.walls[this.states.megas[i].col[2]].hit();
         }
       }
-      states.megas[i].show();
+      this.states.megas[i].show();
     }
 
   }
 
   // Draw the walls on screen
-  function drawWalls (p5)  {
+  drawWalls = (p5) => {
     // draw the walls
-    for (let i = 0; i < states.walls.length; i++) {
-      states.walls[i].show();
+    for (let i = 0; i < this.states.walls.length; i++) {
+      this.states.walls[i].show();
     }
   }
 
   // Draw the stones on screen
-  function drawStones  (p5)  {
-    for (let i = 0; i < states.stones.length; i++) {
-      states.stones[i].show();
+  drawStones = (p5) => {
+    for (let i = 0; i < this.states.stones.length; i++) {
+      this.states.stones[i].show();
     }
   }
 
   // Handles if a key is pressed
-  function keyPressed (key)  {
+  keyPressed = (key) => {
     if (key.key === " ") {
-      states.gameStarted = true;
+      this.states.gameStarted = true;
     }
   };
 
   // Handles if a mouse has been pressed
-  function mousePressed (mouse){
+  mousePressed = (mouse) => {
 
     // mouse position
     let mx = mouse.mouseX;
     let my = mouse.mouseY;
     
     // check if a mega was clicked
-    for (let i = 0; i < states.megas.length; i++) {
-      let mgx = states.megas[i].x;
-      let mgy = states.megas[i].y;
+    for (let i = 0; i < this.states.megas.length; i++) {
+      let mgx = this.states.megas[i].x;
+      let mgy = this.states.megas[i].y;
       let d = Math.hypot(mgx-mx, mgy-my);
       if (d <= 45) {
-        states.megas[i].health--;
-        if (states.megas[i].health === 0) {
-          states.megas.splice(i, 1);
+        this.states.megas[i].health--;
+        if (this.states.megas[i].health === 0) {
+          this.states.megas.splice(i, 1);
         }
-        states.score++;
+        this.states.score++;
         break;
       }
     }
 
     // check if a zombie was clicked
-    for (let i = 0; i < states.zombies.length; i++) {
-      let zx = states.zombies[i].x;
-      let zy = states.zombies[i].y;
+    for (let i = 0; i < this.states.zombies.length; i++) {
+      let zx = this.states.zombies[i].x;
+      let zy = this.states.zombies[i].y;
       let d = Math.hypot(zx-mx, zy-my);
       if (d <= 15) {
-        states.zombies.splice(i, 1);
-        states.score++;
+        this.states.zombies.splice(i, 1);
+        this.states.score++;
         break;
       }
     }
 
     // check if a stone was clicked
-    for (let j = 0; j < states.stones.length; j++) {
-      let sx = states.stones[j].x;
-      let sy = states.stones[j].y;
+    for (let j = 0; j < this.states.stones.length; j++) {
+      let sx = this.states.stones[j].x;
+      let sy = this.states.stones[j].y;
       let d = Math.hypot(sx-mx, sy-my);
       if (d <= 15) {
-        states.stones.splice(j, 1);
-        states.stone += 3;
+        this.states.stones.splice(j, 1);
+        this.states.stone += 3;
         break;
       }
     }
 
     // check if a wall was clicked
-    for (let k = 0; k < states.walls.length; k++) {
-      let wx = states.walls[k].x+15; // add 15 because squares are generated 
-      let wy = states.walls[k].y+15; // from the corner and not the center
+    for (let k = 0; k < this.states.walls.length; k++) {
+      let wx = this.states.walls[k].x+15; // add 15 because squares are generated 
+      let wy = this.states.walls[k].y+15; // from the corner and not the center
       let d = Math.hypot(wx-mx, wy-my);
       if (d <= 20) {
-        if (states.walls[k].canRepair()) {
-          if (states.stone>0) {
-            states.walls[k].status++;
-            states.walls[k].totalHits -= 60;
-            states.stone--;
+        if (this.states.walls[k].canRepair()) {
+          if (this.states.stone>0) {
+            this.states.walls[k].status++;
+            this.states.walls[k].totalHits -= 60;
+            this.states.stone--;
           }
          } 
         break;
@@ -208,11 +212,11 @@ function Game1() {
 
   };
 
-  function beforeGame (p5) {
+  beforeGame = (p5) => {
 
     // set background
-    drawBackground(p5);
-    drawWalls(p5);
+    this.drawBackground(p5);
+    this.drawWalls(p5);
     
     // display text
     p5.fill(255);
@@ -232,19 +236,19 @@ function Game1() {
 
   }
 
-  function afterGame (p5)  {
+  afterGame = (p5) => {
 
     // clear everything
-    states.zombies = [];
-    states.megas = [];
-    states.walls = [];
-    states.stones = [];
+    this.states.zombies = [];
+    this.states.megas = [];
+    this.states.walls = [];
+    this.states.stones = [];
     p5.clear();
-    drawBackground(p5);
+    this.drawBackground(p5);
     for (let i = 0; i < 20; i++) {
-      states.walls.push(new Wall(i*30, 12*30, i, p5));
+      this.states.walls.push(new Wall(i*30, 12*30, i, p5));
     }
-    drawWalls(p5);
+    this.drawWalls(p5);
 
     // display text
     p5.fill(255);
@@ -253,47 +257,47 @@ function Game1() {
     p5.textAlign(p5.CENTER);
     p5.textSize(20);
     let text = "";
-    text += "Your score was " + states.score;
-    text += "\n\n You let " + states.throughCount + " enemies get in the castle";
+    text += "Your score was " + this.states.score;
+    text += "\n\n You let " + this.states.throughCount + " enemies get in the castle";
     p5.text(text, p5.width/2, 160);
     p5.noLoop();
-    history.push("/game2/"+states.score.toString());
+
   }
 
   // Setup the sketch
-  function setup(p5, canvasParentRef)  {
+  setup = (p5, canvasParentRef) => {
 
     // creates canvas
     p5.createCanvas(600, 420).parent(canvasParentRef);
 
     // create the wall objects in an array
     for (let k = 0; k < 20; k++) {
-      states.walls.push(new Wall(k*30, 12*30, k, p5));
+      this.states.walls.push(new Wall(k*30, 12*30, k, p5));
     }
 
     // Display menu before game
-    beforeGame(p5);
+    this.beforeGame(p5);
   };
 
   // Draw each frame
-  function draw (p5) {
-    if (!states.gameOver && states.gameStarted) {
+  draw = p5 => {
+    if (!this.states.gameOver && this.states.gameStarted) {
 
       // increment timer every frame
-      states.timer++;
+      this.states.timer++;
 
       // Adds a new zombie to zombies
-      if ((states.timer%60) === 0) {
+      if ((this.states.timer%60) === 0) {
         let zc = Math.floor(Math.random() * 20);
         let zx = (zc * 30) + 15;
-        states.zombies.push(new Zombie(zx, -40, zc, p5));
+        this.states.zombies.push(new Zombie(zx, -40, zc, p5));
       }
 
       // Adds a new mega to megas
-      if ((states.timer%300) === 0) {
+      if ((this.states.timer%300) === 0) {
         let mc = (Math.floor(Math.random() * 18))+1;
         let mx = (mc * 30) + 15;
-        states.megas.push(new Mega(mx, -100, mc, p5));
+        this.states.megas.push(new Mega(mx, -100, mc, p5));
       }
 
       // try to make a stone 
@@ -303,24 +307,24 @@ function Game1() {
       let sy = (sr * 30) + 15;
       let s = new Stone(sx, sy, p5);
       if (s.shouldSpawn()) {
-        states.stones.push(s);
+        this.states.stones.push(s);
       }
       
       // decrements the time every second
-      if (states.timer%60 === 0) {
-        states.time--;
+      if (this.states.timer%60 === 0) {
+        this.states.time--;
       }
 
       // check if time has run out
-      if (states.time === 0) {
-        states.gameOver = true;
+      if (this.states.time === 0) {
+        this.states.gameOver = true;
       }
 
       // draw using the functions
-      drawBackground(p5);
-      drawWalls(p5);
-      drawStones(p5);
-      drawEnemies(p5);
+      this.drawBackground(p5);
+      this.drawWalls(p5);
+      this.drawStones(p5);
+      this.drawEnemies(p5);
       
       // display text
       p5.fill(255);
@@ -328,33 +332,35 @@ function Game1() {
       p5.textAlign(p5.CENTER);
       p5.textSize(20);
       let text = "";
-      text += 'Time: ' + states.time;
-      text += '   Score: ' + states.score;
-      text += '   Stone: ' + states.stone;
+      text += 'Time: ' + this.states.time;
+      text += '   Score: ' + this.states.score;
+      text += '   Stone: ' + this.states.stone;
       p5.text(text, p5.width/2, 413 );
-
+      
+      this.setState({sscore: this.states.score})
     }
 
     // display game over
-    if (states.gameOver) {
-      afterGame(p5);
+    if (this.states.gameOver) {
+      this.afterGame(p5);
     }
   };
 
   // ReactJS render method
-  
-    if (states.gameOver) {
-
-    }
+  render() {
     return (
-      <div className="game-container">
-        <div>
-          <Sketch setup={setup} draw={draw} keyPressed={keyPressed} mousePressed={mousePressed} />
+      <div>
+        <div className="game-container">
+          <div>
+            <Sketch setup={this.setup} draw={this.draw} keyPressed={this.keyPressed} mousePressed={this.mousePressed} />
+          </div>
         </div>
-        
+        <div>
+          <a className="next-game" id="game1" href={"/game2/"+this.state.sscore}> NEXT GAME </a>
+        </div>
       </div>
     );
-  
+  }
 
 }
 

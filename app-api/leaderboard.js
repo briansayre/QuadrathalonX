@@ -5,7 +5,8 @@ export const main = handler(async (event, context) => {
 
     const params = {
         TableName: process.env.tableName,
-        ProjectionExpression: "highscore",
+        ProjectionExpression: "highscore, #n",
+        ExpressionAttributeNames: {'#n':'name'}
     };
 
     const result = await dynamoDb.scan(params);

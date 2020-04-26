@@ -16,7 +16,9 @@ let prev = 0;
 
 
 class Game4 extends Component {
-
+    state = {
+        sscore: 0
+    }
     states = {
         gp5: null,
         cnv: null,
@@ -187,6 +189,7 @@ class Game4 extends Component {
             p5.textSize(20);
             let text = 'Score: ' + score;
             p5.text(text, 10, 30);
+            this.setState({sscore: score})
         } else {
             p5.fill(0);
             p5.stroke(255);
@@ -220,15 +223,15 @@ class Game4 extends Component {
     render() {
             return ( 
                 <div>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <a className="next-game4" id="game4nextgame" href={"/highscore/"+this.props.match.params.g1s+"/"+this.props.match.params.g2s+"/"+this.props.match.params.g2s+"/"+score}> Next Game </a>
-                 
-                <div className="game-container">
-                    <div className="game">
-                        < Sketch setup = { this.setup } draw = { this.draw } keyPressed = { this.keyPressed } mousePressed = {this.mousePressed} windowResized = {this.centerCanvas }/> 
-                     </div> 
-    
-                </div>
+                    <div className="game-container">
+                        <div className="game">
+                            < Sketch setup = { this.setup } draw = { this.draw } keyPressed = { this.keyPressed } mousePressed = {this.mousePressed} windowResized = {this.centerCanvas }/> 
+                        </div> 
+                    </div>
+
+                    <div>
+                        <a className="next-game" id="game4" href={"/highscore/"+this.props.match.params.g1s+"/"+this.props.match.params.g2s+"/"+this.props.match.params.g3s+"/"+score}> FINISH </a>
+                    </div>
                 </div>
             );
 

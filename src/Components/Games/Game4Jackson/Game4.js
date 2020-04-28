@@ -40,8 +40,7 @@ class Game4 extends Component {
                 break;
 
             case 'r':
-                this.spawnNewPiece(this.states.gp5);
-                playfield.resetGrid();
+                score += 10;
                 break;
 
             case 'p':
@@ -138,7 +137,7 @@ class Game4 extends Component {
             // if necessary
             if (fallingPiece.timeToFall()) {
                 fallingPiece.resetBuffer();
-                fallingPiece.moveDown();
+                fallingPiece.moveDown(score);
 
                 if (!playfield.isValid(fallingPiece)) {
                     fallingPiece.moveUp();
@@ -176,7 +175,7 @@ class Game4 extends Component {
 
             }
 
-            score += rowCount * rowCount;
+            score += rowCount*25;
             this.states.gp5.background(251);
 
             playfield.show();

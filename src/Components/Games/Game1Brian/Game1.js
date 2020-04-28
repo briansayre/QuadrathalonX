@@ -67,7 +67,7 @@ class Game1 extends Component {
         // remove zombie that is off screen
         if (this.states.zombies[i].y > 450) {
           this.states.zombies.splice(i, 1);
-          this.states.score -= 1;
+          this.states.score -= 20;
           this.states.throughCount++;
         }
       // hit wall
@@ -164,7 +164,7 @@ class Game1 extends Component {
         if (this.states.megas[i].health === 0) {
           this.states.megas.splice(i, 1);
         }
-        this.states.score++;
+        this.states.score += 20;
         break;
       }
     }
@@ -176,7 +176,7 @@ class Game1 extends Component {
       let d = Math.hypot(zx-mx, zy-my);
       if (d <= 15) {
         this.states.zombies.splice(i, 1);
-        this.states.score++;
+        this.states.score += 10;
         break;
       }
     }
@@ -189,6 +189,7 @@ class Game1 extends Component {
       if (d <= 15) {
         this.states.stones.splice(j, 1);
         this.states.stone += 3;
+        this.states.score += 5;
         break;
       }
     }
@@ -204,6 +205,7 @@ class Game1 extends Component {
             this.states.walls[k].status++;
             this.states.walls[k].totalHits -= 60;
             this.states.stone--;
+            this.states.score += 5;
           }
          } 
         break;

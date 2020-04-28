@@ -1,7 +1,7 @@
 export default class Piece {
 	
 	gp5;
-	
+	score;
 	constructor(type, playfield, x, y, p5) {
 		// cells of this piece
 		this.gp5 = p5;
@@ -72,15 +72,24 @@ export default class Piece {
 	}
 
 
-	moveDown() {
+	moveDown(s) {
+		if (s % 50 === 0 && s !== this.score) {
+			if (this.dropInterval >= 250) {
+				this.dropInterval -= 50;
+			}
+		}
+		this.score = s;
 		this.y++;
 	}
+
 	moveRight() {
 		this.x++;
 	}
+
 	moveLeft() {
 		this.x--;
 	}
+
 	moveUp() {
 		this.y--;
 	}

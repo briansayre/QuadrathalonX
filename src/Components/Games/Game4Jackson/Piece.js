@@ -78,6 +78,7 @@ export default class Piece {
 				this.dropInterval -= 50;
 			}
 		}
+		
 		this.score = s;
 		this.y++;
 	}

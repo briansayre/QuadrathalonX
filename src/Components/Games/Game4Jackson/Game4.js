@@ -40,7 +40,7 @@ class Game4 extends Component {
                 break;
 
             case 'r':
-                score += 10;
+                //score += 10;
                 break;
 
             case 'p':

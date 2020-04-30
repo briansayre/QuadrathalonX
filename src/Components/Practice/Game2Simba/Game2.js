@@ -155,7 +155,7 @@ class Board extends React.Component {
       {
         if(grid[i][j-1] === grid[i][j])
         {
-          score += grid[i][j-1];
+          score += grid[i][j-1]/2;
           grid[i][j-1]*=2;
           grid[i][j] = 0;
         }
@@ -180,7 +180,7 @@ class Board extends React.Component {
       {
         if(grid[i+1][j] === grid[i][j])
         {
-          score+=grid[i+1][j];
+          score+=grid[i+1][j]/2;
           grid[i+1][j]*=2;
           grid[i][j] = 0;
 
@@ -206,7 +206,7 @@ class Board extends React.Component {
       {
         if(grid[i][j+1] === grid[i][j])
         {
-          score+=grid[i][j+1];
+          score+=grid[i][j+1]/2;
           grid[i][j+1]*=2;
           grid[i][j] = 0;
 
@@ -231,7 +231,7 @@ class Board extends React.Component {
       {
         if(grid[i-1][j] === grid[i][j])
         {
-          score+=grid[i-1][j];
+          score+=(grid[i-1][j])/2;
           grid[i-1][j]*=2;
           grid[i][j] = 0;
 
@@ -429,7 +429,8 @@ class Board extends React.Component {
           {this.renderSquare(this.state.grid[3][2])}
           {this.renderSquare(this.state.grid[3][3])}
         </div>
-      </div>
+
+        </div>
     );
   }
 }

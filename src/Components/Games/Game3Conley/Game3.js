@@ -287,7 +287,7 @@ class Game3 extends React.Component {
          snake: {
                head: {
                    row: this.getCenterOfGrid().row,
-                   col: this.getCenterOfGrid().col,
+                   col: this.getCenterOfGrid().col-10,
                    v: {
                        x: 1,
                        y: 0

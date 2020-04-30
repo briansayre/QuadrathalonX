@@ -16,7 +16,9 @@ let prev = 0;
 
 
 class Game4 extends Component {
-
+    state = {
+        sscore: 0
+    }
     states = {
         gp5: null,
         cnv: null,
@@ -38,8 +40,7 @@ class Game4 extends Component {
                 break;
 
             case 'r':
-                this.spawnNewPiece(this.states.gp5);
-                playfield.resetGrid();
+                //score += 10;
                 break;
 
             case 'p':
@@ -136,7 +137,7 @@ class Game4 extends Component {
             // if necessary
             if (fallingPiece.timeToFall()) {
                 fallingPiece.resetBuffer();
-                fallingPiece.moveDown();
+                fallingPiece.moveDown(score);
 
                 if (!playfield.isValid(fallingPiece)) {
                     fallingPiece.moveUp();
@@ -174,7 +175,7 @@ class Game4 extends Component {
 
             }
 
-            score += rowCount * rowCount;
+            score += rowCount*25;
             this.states.gp5.background(251);
 
             playfield.show();
@@ -187,6 +188,7 @@ class Game4 extends Component {
             p5.textSize(20);
             let text = 'Score: ' + score;
             p5.text(text, 10, 30);
+            this.setState({sscore: score})
         } else {
             p5.fill(0);
             p5.stroke(255);
@@ -220,13 +222,12 @@ class Game4 extends Component {
     render() {
             return ( 
                 <div>
-                
-                <div className="game-container">
-                    <div className="game">
-                        < Sketch setup = { this.setup } draw = { this.draw } keyPressed = { this.keyPressed } mousePressed = {this.mousePressed} windowResized = {this.centerCanvas }/> 
-                     </div> 
-    
-                </div>
+                    <div className="game-container">
+                        <div className="game">
+                            < Sketch setup = { this.setup } draw = { this.draw } keyPressed = { this.keyPressed } mousePressed = {this.mousePressed} windowResized = {this.centerCanvas }/> 
+                        </div> 
+                    </div>
+
                 </div>
             );
 
